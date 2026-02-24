@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Página Base – ADS</title>
+  <style>
+    /* ===== Reset básico ===== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f2f5;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* ===== Cabeçalho ===== */
+    header {
+      background: #2563eb;
+      color: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 { font-size: 1.5rem; }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-weight: 500;
+      transition: opacity 0.2s;
+    }
+
+    nav a:hover { opacity: 0.75; }
+
+    /* ===== Conteúdo principal ===== */
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    .card h2 {
+      margin-bottom: 0.75rem;
+      color: #2563eb;
+    }
+
+    button {
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      padding: 0.6rem 1.4rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+
+    button:hover { background: #1d4ed8; }
+
+    #resultado {
+      margin-top: 0.75rem;
+      font-weight: bold;
+      color: #16a34a;
+    }
+
+    /* ===== Rodapé ===== */
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.85rem;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🎓 Projeto ADS</h1>
+    <nav>
+      <a href="#">Início</a>
+      <a href="#">Sobre</a>
+      <a href="#">Contato</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="card">
+      <h2>Bem-vindo!</h2>
+      <p>Este é um template base para projetos de Desenvolvimento Web do curso de ADS.</p>
+    </div>
+
+    <div class="card">
+      <h2>Exemplo de Interação com JavaScript</h2>
+      <p>Clique no botão abaixo para ver JavaScript funcionando:</p>
+      <br />
+      <button onclick="cumprimentar()">Clique aqui</button>
+      <p id="resultado"></p>
+    </div>
+  </main>
+
+  <footer>
+    <p>Curso de ADS &copy; <span id="ano"></span></p>
+  </footer>
+
+  <script>
+    // Atualiza o ano no rodapé automaticamente
+    document.getElementById('ano').textContent = new Date().getFullYear();
+
+    // Função chamada pelo botão
+    function cumprimentar() {
+      const nome = prompt('Qual é o seu nome?') || 'Visitante';
+      document.getElementById('resultado').textContent =
+        `Olá, ${nome}! Bem-vindo ao curso de ADS! 🚀`;
+    }
+  </script>
+
+</body>
+</html>
