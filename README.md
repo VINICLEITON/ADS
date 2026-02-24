@@ -42,4 +42,3 @@ Cada pasta de disciplina contém:
 ## 🛠️ Tecnologias utilizadas
 
 Python · SQL · HTML/CSS/JavaScript · Bash · Java (conforme disciplina)
-
