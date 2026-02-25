@@ -1,0 +1,8 @@
+# Java compiled output
+*.class
+
+# NetBeans build artifacts
+build/
+dist/
+nbproject/private/
+nbproject/build-impl.xml

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Arquivo de build do NetBeans (Ant). Não edite manualmente. -->
+<project name="POO-Java" default="default" basedir=".">
+    <description>Compila, testa e executa o projeto POO-Java.</description>
+    <import file="nbproject/build-impl.xml"/>
+</project>
