@@ -8,7 +8,7 @@ Repositório organizado com materiais, exercícios e projetos das disciplinas do
 
 ```
 ADS/
-├── 1-Algoritmos-e-Programacao/   # Lógica, algoritmos e programação estruturada/OOP
+├── 1-POO-Programacao-Orientada-a-Objetos/   # POO com Java: classes, herança, polimorfismo e encapsulamento
 ├── 2-Estrutura-de-Dados/         # Listas, pilhas, filas, árvores, grafos e ordenação
 ├── 3-Banco-de-Dados/             # Modelagem, SQL e NoSQL
 ├── 4-Desenvolvimento-Web/        # HTML, CSS, JavaScript, front-end e back-end
@@ -33,7 +33,7 @@ Cada pasta de disciplina contém:
    ```
 2. Navegue até a disciplina desejada:
    ```bash
-   cd ADS/1-Algoritmos-e-Programacao
+   cd ADS/1-POO-Programacao-Orientada-a-Objetos
    ```
 3. Leia o `README.md` da disciplina e explore os arquivos.
 
