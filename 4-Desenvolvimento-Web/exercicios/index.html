@@ -3,131 +3,564 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Página Base – ADS</title>
+  <title>Códigos Básicos – ADS</title>
   <style>
-    /* ===== Reset básico ===== */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    /* ===== Reset ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: #f0f2f5;
       color: #333;
       line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     /* ===== Cabeçalho ===== */
     header {
-      background: #2563eb;
+      background: #1e3a8a;
       color: #fff;
-      padding: 1rem 2rem;
+      padding: 0.9rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
-    header h1 { font-size: 1.5rem; }
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .header-logo span { font-size: 1.6rem; }
+
+    nav { display: flex; gap: 0.25rem; }
 
     nav a {
-      color: #fff;
+      color: #bfdbfe;
       text-decoration: none;
-      margin-left: 1.5rem;
-      font-weight: 500;
-      transition: opacity 0.2s;
-    }
-
-    nav a:hover { opacity: 0.75; }
-
-    /* ===== Conteúdo principal ===== */
-    main {
-      max-width: 900px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-    }
-
-    .card {
-      background: #fff;
-      border-radius: 8px;
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-    }
-
-    .card h2 {
-      margin-bottom: 0.75rem;
-      color: #2563eb;
-    }
-
-    button {
-      background: #2563eb;
-      color: #fff;
-      border: none;
-      padding: 0.6rem 1.4rem;
+      padding: 0.4rem 0.9rem;
       border-radius: 6px;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: background 0.2s;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: background 0.2s, color 0.2s;
     }
 
-    button:hover { background: #1d4ed8; }
+    nav a:hover, nav a.ativo { background: #2563eb; color: #fff; }
 
-    #resultado {
-      margin-top: 0.75rem;
-      font-weight: bold;
-      color: #16a34a;
+    /* ===== Breadcrumb ===== */
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      color: #64748b;
+      padding: 0.65rem 2rem;
+      background: #fff;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .breadcrumb a {
+      color: #2563eb;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb .sep { color: #cbd5e1; }
+    .breadcrumb .atual { color: #334155; font-weight: 600; }
+
+    /* ===== Main ===== */
+    main { flex: 1; display: flex; flex-direction: column; }
+
+    /* ===== Views (SPA) ===== */
+    .view { display: none; }
+    .view.ativa { display: block; flex: 1; }
+
+    /* ===== Hero da Home ===== */
+    .hero {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 60%, #7c3aed 100%);
+      color: #fff;
+      padding: 3.5rem 2rem 2.5rem;
+      text-align: center;
+    }
+
+    .hero h2 {
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.6rem;
+    }
+
+    .hero p { font-size: 1.05rem; opacity: 0.85; max-width: 540px; margin: 0 auto; }
+
+    /* ===== Grade de cards de tecnologia ===== */
+    .secao { max-width: 1000px; margin: 0 auto; padding: 2.5rem 1.5rem; }
+
+    .secao-titulo {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 1.25rem;
+    }
+
+    .grade-tec {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    /* Card de tecnologia (HTML / CSS / JS) */
+    .card-tec {
+      background: #fff;
+      border-radius: 16px;
+      padding: 2rem 1.75rem;
+      cursor: pointer;
+      border: 2px solid transparent;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .card-tec:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.12);
+      border-color: var(--cor);
+    }
+
+    .card-tec .icone {
+      width: 56px; height: 56px;
+      border-radius: 12px;
+      background: var(--cor-bg);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem;
+    }
+
+    .card-tec h3 { font-size: 1.35rem; font-weight: 700; color: #1e293b; }
+    .card-tec p  { font-size: 0.9rem; color: #64748b; flex: 1; }
+
+    .card-tec .badge {
+      align-self: flex-start;
+      background: var(--cor-bg);
+      color: var(--cor);
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+    }
+
+    .card-tec .seta {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--cor);
+      margin-top: 0.25rem;
+    }
+
+    /* Cores por tecnologia */
+    .html-cor  { --cor: #e34c26; --cor-bg: #fff3ef; }
+    .css-cor   { --cor: #264de4; --cor-bg: #eef2ff; }
+    .js-cor    { --cor: #b45309; --cor-bg: #fffbeb; }
+
+    /* ===== View: lista de tópicos ===== */
+    .tec-header {
+      padding: 2rem 2rem 1rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .tec-titulo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 0.4rem;
+    }
+
+    .tec-subtitulo { font-size: 0.95rem; color: #64748b; }
+
+    .grade-topicos {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.1rem;
+    }
+
+    /* Card de tópico */
+    .card-topico {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1.25rem 1.4rem;
+      cursor: pointer;
+      border: 1.5px solid #e2e8f0;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .card-topico:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      border-color: var(--cor-tec, #2563eb);
+    }
+
+    .card-topico .num {
+      min-width: 34px; height: 34px;
+      border-radius: 8px;
+      background: var(--cor-tec-bg, #eff6ff);
+      color: var(--cor-tec, #2563eb);
+      font-weight: 800;
+      font-size: 0.85rem;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .card-topico .info h4 { font-size: 0.98rem; font-weight: 700; color: #1e293b; }
+    .card-topico .info p  { font-size: 0.82rem; color: #64748b; margin-top: 0.2rem; }
+
+    /* ===== View: conteúdo (iframe) ===== */
+    /* Uses flex to fill remaining viewport height without magic numbers */
+    #view-conteudo { display: none; flex-direction: column; }
+    #view-conteudo.ativa { display: flex; }
+
+    #frame-conteudo {
+      flex: 1;
+      width: 100%;
+      border: none;
+      background: #fff;
     }
 
     /* ===== Rodapé ===== */
     footer {
       text-align: center;
-      padding: 1rem;
+      padding: 1.1rem;
       font-size: 0.85rem;
-      color: #888;
+      color: #94a3b8;
+      background: #1e293b;
+    }
+
+    /* ===== Responsivo ===== */
+    @media (max-width: 600px) {
+      header { padding: 0.75rem 1rem; }
+      .hero  { padding: 2.5rem 1rem 2rem; }
+      .secao { padding: 1.5rem 1rem; }
+      .tec-header { padding: 1.25rem 1rem 0.75rem; }
+      nav a  { padding: 0.35rem 0.6rem; font-size: 0.85rem; }
     }
   </style>
 </head>
 <body>
 
+  <!-- ===== CABEÇALHO ===== -->
   <header>
-    <h1>🎓 Projeto ADS</h1>
+    <div class="header-logo">
+      <span>🎓</span> Projeto ADS
+    </div>
     <nav>
-      <a href="#">Início</a>
-      <a href="#">Sobre</a>
-      <a href="#">Contato</a>
+      <a href="#" id="nav-inicio" class="ativo" onclick="irHome(event)">Início</a>
+      <a href="#" id="nav-sobre"  onclick="irSobre(event)">Sobre</a>
+      <a href="#" id="nav-contato" onclick="irContato(event)">Contato</a>
     </nav>
   </header>
 
-  <main>
-    <div class="card">
-      <h2>Bem-vindo!</h2>
-      <p>Este é um template base para projetos de Desenvolvimento Web do curso de ADS.</p>
+  <!-- ===== BREADCRUMB ===== -->
+  <div class="breadcrumb" id="breadcrumb" style="display:none;">
+    <a onclick="irHome(event)">🏠 Início</a>
+    <span class="sep">›</span>
+    <span id="bc-tec" style="display:none;">
+      <a id="bc-tec-link" onclick="irTecnologia(event)"></a>
+      <span class="sep">›</span>
+    </span>
+    <span class="atual" id="bc-atual"></span>
+  </div>
+
+  <!-- ===== VIEWS ===== -->
+
+  <!-- VIEW: HOME -->
+  <div id="view-home" class="view ativa">
+    <div class="hero">
+      <h2>📚 Códigos Básicos</h2>
+      <p>Aprenda os fundamentos do desenvolvimento web com exemplos práticos e interativos.</p>
     </div>
 
-    <div class="card">
-      <h2>Exemplo de Interação com JavaScript</h2>
-      <p>Clique no botão abaixo para ver JavaScript funcionando:</p>
-      <br />
-      <button onclick="cumprimentar()">Clique aqui</button>
-      <p id="resultado"></p>
-    </div>
-  </main>
+    <div class="secao">
+      <p class="secao-titulo">Escolha uma tecnologia para começar</p>
+      <div class="grade-tec">
 
+        <!-- HTML -->
+        <div class="card-tec html-cor" onclick="abrirTecnologia('html')">
+          <div class="icone">🌐</div>
+          <h3>HTML</h3>
+          <p>Estrutura e semântica de páginas web. Tags, formulários, tabelas e muito mais.</p>
+          <span class="badge">6 tópicos</span>
+          <div class="seta">Ver tópicos <span>→</span></div>
+        </div>
+
+        <!-- CSS -->
+        <div class="card-tec css-cor" onclick="abrirTecnologia('css')">
+          <div class="icone">🎨</div>
+          <h3>CSS</h3>
+          <p>Estilos, layouts e responsividade. Seletores, Flexbox, Grid e media queries.</p>
+          <span class="badge">5 tópicos</span>
+          <div class="seta">Ver tópicos <span>→</span></div>
+        </div>
+
+        <!-- JavaScript -->
+        <div class="card-tec js-cor" onclick="abrirTecnologia('javascript')">
+          <div class="icone">⚡</div>
+          <h3>JavaScript</h3>
+          <p>Programação na web. Variáveis, funções, DOM, eventos e muito mais.</p>
+          <span class="badge">7 tópicos</span>
+          <div class="seta">Ver tópicos <span>→</span></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- VIEW: LISTA DE TÓPICOS -->
+  <div id="view-topicos" class="view">
+    <div class="tec-header">
+      <div class="tec-titulo" id="tec-titulo"></div>
+      <p class="tec-subtitulo" id="tec-subtitulo"></p>
+    </div>
+    <div class="secao" style="padding-top:0.5rem;">
+      <div class="grade-topicos" id="grade-topicos"></div>
+    </div>
+  </div>
+
+  <!-- VIEW: CONTEÚDO (iframe) -->
+  <div id="view-conteudo" class="view">
+    <iframe id="frame-conteudo" title="Conteúdo do exercício"></iframe>
+  </div>
+
+  <!-- VIEW: SOBRE -->
+  <div id="view-sobre" class="view">
+    <div class="secao" style="max-width:700px;">
+      <div style="background:#fff;border-radius:16px;padding:2rem;box-shadow:0 4px 12px rgba(0,0,0,0.07);margin-top:1rem;">
+        <h2 style="color:#2563eb;margin-bottom:1rem;">Sobre o Projeto</h2>
+        <p>Este projeto reúne exercícios e exemplos de ensino das disciplinas do curso de <strong>Análise e Desenvolvimento de Sistemas (ADS)</strong>.</p>
+        <br/>
+        <p>Os conteúdos cobrem os fundamentos de <strong>HTML</strong>, <strong>CSS</strong> e <strong>JavaScript</strong>, com código comentado e interativo para facilitar o aprendizado.</p>
+        <br/>
+        <p>Cada tópico é um arquivo HTML autocontido, com explicações detalhadas, exemplos de código e demonstrações práticas.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIEW: CONTATO -->
+  <div id="view-contato" class="view">
+    <div class="secao" style="max-width:700px;">
+      <div style="background:#fff;border-radius:16px;padding:2rem;box-shadow:0 4px 12px rgba(0,0,0,0.07);margin-top:1rem;">
+        <h2 style="color:#2563eb;margin-bottom:1rem;">Contato</h2>
+        <p>Dúvidas ou sugestões sobre o material? Entre em contato pelo repositório do projeto no GitHub.</p>
+        <br/>
+        <p>🔗 <strong>Repositório:</strong> <a href="https://github.com/VINICLEITON/ADS" target="_blank" rel="noopener noreferrer" style="color:#2563eb;">github.com/VINICLEITON/ADS</a></p>
+        <br/>
+        <p>📚 <strong>Curso:</strong> Análise e Desenvolvimento de Sistemas</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== RODAPÉ ===== -->
   <footer>
-    <p>Curso de ADS &copy; <span id="ano"></span></p>
+    <p>Curso de ADS &copy; 2025-2027</p>
   </footer>
 
   <script>
-    // Atualiza o ano no rodapé automaticamente
-    document.getElementById('ano').textContent = new Date().getFullYear();
+    /* ============================================================
+       Dados dos tópicos por tecnologia
+    ============================================================ */
+    const TECNOLOGIAS = {
+      html: {
+        titulo:    '🌐 HTML',
+        label:     'HTML',
+        subtitulo: 'Estrutura e semântica de páginas web',
+        cor:       '#e34c26',
+        corBg:     '#fff3ef',
+        topicos: [
+          { id: '01-Estrutura-Basica',  num: '01', titulo: 'Estrutura Básica',    desc: 'DOCTYPE, head, body, charset e meta tags' },
+          { id: '02-Textos-e-Listas',   num: '02', titulo: 'Textos e Listas',     desc: 'Headings, parágrafos, ul, ol, dl, blockquote' },
+          { id: '03-Links-e-Imagens',   num: '03', titulo: 'Links e Imagens',     desc: 'Âncoras, img, figure, figcaption' },
+          { id: '04-Formularios',       num: '04', titulo: 'Formulários',         desc: 'input, select, checkbox, radio, validação' },
+          { id: '05-Tabelas',           num: '05', titulo: 'Tabelas',             desc: 'thead, tbody, tfoot, colspan, rowspan' },
+          { id: '06-Semantica',         num: '06', titulo: 'Semântica HTML5',     desc: 'header, nav, main, section, article, aside' },
+        ]
+      },
+      css: {
+        titulo:    '🎨 CSS',
+        label:     'CSS',
+        subtitulo: 'Estilos, layouts e responsividade',
+        cor:       '#264de4',
+        corBg:     '#eef2ff',
+        topicos: [
+          { id: '01-Seletores-e-Propriedades', num: '01', titulo: 'Seletores e Propriedades', desc: 'tag, classe, id, atributo, pseudo-classes' },
+          { id: '02-Box-Model',                num: '02', titulo: 'Box Model',                desc: 'content, padding, border, margin, box-sizing' },
+          { id: '03-Flexbox',                  num: '03', titulo: 'Flexbox',                  desc: 'flex-direction, justify-content, align-items' },
+          { id: '04-Grid',                     num: '04', titulo: 'CSS Grid',                 desc: 'grid-template-columns, areas, auto-fit' },
+          { id: '05-Responsividade',           num: '05', titulo: 'Responsividade',           desc: 'mobile-first, media queries, clamp()' },
+        ]
+      },
+      javascript: {
+        titulo:    '⚡ JavaScript',
+        label:     'JavaScript',
+        subtitulo: 'Programação e interatividade na web',
+        cor:       '#b45309',
+        corBg:     '#fffbeb',
+        topicos: [
+          { id: '01-Variaveis-e-Tipos',       num: '01', titulo: 'Variáveis e Tipos',       desc: 'var, let, const e tipos primitivos' },
+          { id: '02-Operadores',              num: '02', titulo: 'Operadores',              desc: 'aritméticos, lógicos, comparação (== vs ===)' },
+          { id: '03-Estruturas-de-Controle',  num: '03', titulo: 'Estruturas de Controle',  desc: 'if / else if / else e switch / case' },
+          { id: '04-Lacos',                   num: '04', titulo: 'Laços',                   desc: 'for, while, for...of, forEach, map, filter' },
+          { id: '05-Funcoes',                 num: '05', titulo: 'Funções',                 desc: 'declaração, arrow functions, closures, recursão' },
+          { id: '06-Arrays-e-Objetos',        num: '06', titulo: 'Arrays e Objetos',        desc: 'métodos, desestruturação, spread, Object.entries' },
+          { id: '07-DOM-e-Eventos',           num: '07', titulo: 'DOM e Eventos',           desc: 'querySelector, addEventListener, classList' },
+        ]
+      }
+    };
 
-    // Função chamada pelo botão
-    function cumprimentar() {
-      const nome = prompt('Qual é o seu nome?') || 'Visitante';
-      document.getElementById('resultado').textContent =
-        `Olá, ${nome}! Bem-vindo ao curso de ADS! 🚀`;
+    /* ============================================================
+       Estado da navegação
+    ============================================================ */
+    let tecAtual = null;
+
+    /* ============================================================
+       Utilitários de UI
+    ============================================================ */
+    function mostrarView(id) {
+      // Clean up iframe whenever we navigate away from content view
+      if (id !== 'view-conteudo') {
+        document.getElementById('frame-conteudo').src = 'about:blank';
+      }
+      document.querySelectorAll('.view').forEach(v => v.classList.remove('ativa'));
+      const el = document.getElementById(id);
+      if (el) el.classList.add('ativa');
+    }
+
+    function setNavAtivo(id) {
+      document.querySelectorAll('nav a').forEach(a => a.classList.remove('ativo'));
+      const el = document.getElementById(id);
+      if (el) el.classList.add('ativo');
+    }
+
+    function mostrarBreadcrumb(tecLabel, topLabel) {
+      const bc = document.getElementById('breadcrumb');
+      const bcTec = document.getElementById('bc-tec');
+      const bcTecLink = document.getElementById('bc-tec-link');
+      const bcAtual = document.getElementById('bc-atual');
+
+      if (!tecLabel) {
+        bc.style.display = 'none';
+        return;
+      }
+
+      bc.style.display = 'flex';
+
+      if (topLabel) {
+        bcTec.style.display = 'inline-flex';
+        bcTecLink.textContent = tecLabel;
+        bcAtual.textContent = topLabel;
+      } else {
+        bcTec.style.display = 'none';
+        bcAtual.textContent = tecLabel;
+      }
+    }
+
+    /* ============================================================
+       Navegação
+    ============================================================ */
+    function irHome(e) {
+      if (e) e.preventDefault();
+      tecAtual = null;
+      mostrarView('view-home');
+      mostrarBreadcrumb(null);
+      setNavAtivo('nav-inicio');
+    }
+
+    function irSobre(e) {
+      if (e) e.preventDefault();
+      mostrarView('view-sobre');
+      mostrarBreadcrumb('Sobre');
+      setNavAtivo('nav-sobre');
+    }
+
+    function irContato(e) {
+      if (e) e.preventDefault();
+      mostrarView('view-contato');
+      mostrarBreadcrumb('Contato');
+      setNavAtivo('nav-contato');
+    }
+
+    function abrirTecnologia(tecId) {
+      const tec = TECNOLOGIAS[tecId];
+      if (!tec) return;
+      tecAtual = tecId;
+
+      // Atualiza o título e subtítulo
+      document.getElementById('tec-titulo').textContent = tec.titulo;
+      document.getElementById('tec-subtitulo').textContent = tec.subtitulo;
+
+      // Gera os cards de tópicos
+      const grade = document.getElementById('grade-topicos');
+      grade.innerHTML = '';
+      grade.style.setProperty('--cor-tec',    tec.cor);
+      grade.style.setProperty('--cor-tec-bg', tec.corBg);
+
+      tec.topicos.forEach(top => {
+        const card = document.createElement('div');
+        card.className = 'card-topico';
+        card.style.setProperty('--cor-tec',    tec.cor);
+        card.style.setProperty('--cor-tec-bg', tec.corBg);
+        card.innerHTML = `
+          <div class="num">${top.num}</div>
+          <div class="info">
+            <h4>${top.titulo}</h4>
+            <p>${top.desc}</p>
+          </div>`;
+        card.addEventListener('click', () => abrirTopico(tecId, top));
+        grade.appendChild(card);
+      });
+
+      mostrarView('view-topicos');
+      mostrarBreadcrumb(tec.label);
+      setNavAtivo('nav-inicio');
+    }
+
+    function irTecnologia(e) {
+      if (e) e.preventDefault();
+      if (tecAtual) abrirTecnologia(tecAtual);
+    }
+
+    function abrirTopico(tecId, topico) {
+      const tec = TECNOLOGIAS[tecId];
+      // Monta o caminho relativo para o arquivo de exercício
+      const pasta = tecId === 'html' ? 'HTML'
+                  : tecId === 'css'  ? 'CSS'
+                  : 'JavaScript';
+      const src = `${pasta}/${topico.id}.html`;
+
+      document.getElementById('frame-conteudo').src = src;
+      mostrarView('view-conteudo');
+      mostrarBreadcrumb(tec.label, topico.titulo);
+      setNavAtivo('nav-inicio');
     }
   </script>
 
