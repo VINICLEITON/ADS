@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  HTML – Formulários
+  Conceito: formulários permitem coletar dados do usuário.
+  A tag <form> agrupa os campos; cada campo usa uma tag
+  específica: <input>, <textarea>, <select>, <button>.
+  ============================================================
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>04 – Formulários</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 750px; margin: 2rem auto;
+           padding: 0 1rem; line-height: 1.7; color: #333; }
+    h1 { color: #2563eb; }
+    h2 { color: #1e40af; border-bottom: 2px solid #bfdbfe; padding-bottom: 0.25rem; }
+    form { background: #f8fafc; border: 1px solid #e2e8f0;
+           border-radius: 8px; padding: 1.5rem; margin: 1rem 0; }
+    .campo { margin-bottom: 1rem; }
+    label { display: block; font-weight: bold; margin-bottom: 0.25rem; }
+    input, textarea, select {
+      width: 100%; padding: 0.5rem 0.75rem; border: 1px solid #cbd5e1;
+      border-radius: 6px; font-size: 1rem; box-sizing: border-box;
+    }
+    input:focus, textarea:focus, select:focus {
+      outline: none; border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
+    }
+    button { background: #2563eb; color: #fff; border: none;
+             padding: 0.6rem 1.5rem; border-radius: 6px;
+             cursor: pointer; font-size: 1rem; }
+    button:hover { background: #1d4ed8; }
+    #saida { margin-top: 1rem; padding: 0.75rem 1rem;
+             background: #ecfdf5; border-radius: 6px;
+             display: none; color: #15803d; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+  <h1>Formulários em HTML</h1>
+
+  <!-- =====================================================
+    TAG <form>
+    Agrupa todos os campos de entrada.
+
+    Atributos principais:
+      • action → URL para onde os dados serão enviados
+                  (omitido aqui pois usamos JavaScript)
+      • method → método HTTP: "get" (dados na URL) ou
+                 "post" (dados no corpo da requisição)
+                 Use POST para dados sensíveis (senhas, e-mails).
+  ===================================================== -->
+  <h2>1. Campos de Texto Básicos</h2>
+
+  <form action="#" method="post" onsubmit="enviarFormulario(event)">
+
+    <!-- ===================================================
+      TAG <label>
+      Associa um texto descritivo a um campo.
+      O atributo 'for' deve corresponder ao 'id' do campo —
+      isso melhora a acessibilidade: clicar no label foca o campo.
+    =================================================== -->
+
+    <!-- <input type="text"> → campo de texto de linha única -->
+    <div class="campo">
+      <label for="nome">Nome completo *</label>
+      <input
+        type="text"
+        id="nome"
+        name="nome"
+        placeholder="Ex.: Ana Souza"
+        required
+        maxlength="100"
+      />
+      <!--
+        required   → campo obrigatório (validação nativa do HTML5)
+        maxlength  → limite de caracteres
+        placeholder → texto de dica exibido quando o campo está vazio
+      -->
+    </div>
+
+    <!-- <input type="email"> → valida formato de e-mail automaticamente -->
+    <div class="campo">
+      <label for="email">E-mail *</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        placeholder="ana@exemplo.com"
+        required
+      />
+    </div>
+
+    <!-- <input type="password"> → oculta os caracteres digitados -->
+    <div class="campo">
+      <label for="senha">Senha *</label>
+      <input
+        type="password"
+        id="senha"
+        name="senha"
+        minlength="6"
+        required
+      />
+      <!-- minlength → mínimo de caracteres exigido -->
+    </div>
+
+    <!-- <input type="number"> → aceita apenas números; min/max definem o intervalo -->
+    <div class="campo">
+      <label for="idade">Idade</label>
+      <input
+        type="number"
+        id="idade"
+        name="idade"
+        min="1"
+        max="120"
+        placeholder="18"
+      />
+    </div>
+
+    <!-- <input type="date"> → seletor de data nativo do navegador -->
+    <div class="campo">
+      <label for="nascimento">Data de nascimento</label>
+      <input type="date" id="nascimento" name="nascimento" />
+    </div>
+
+    <!-- <input type="tel"> → campo para número de telefone -->
+    <div class="campo">
+      <label for="telefone">Telefone</label>
+      <input
+        type="tel"
+        id="telefone"
+        name="telefone"
+        placeholder="(11) 99999-9999"
+      />
+    </div>
+
+    <!-- ===================================================
+      TAG <textarea>
+      Campo de texto de múltiplas linhas.
+      rows → número de linhas visíveis
+      cols → largura em caracteres (substituído por CSS aqui)
+    =================================================== -->
+    <div class="campo">
+      <label for="mensagem">Mensagem</label>
+      <textarea
+        id="mensagem"
+        name="mensagem"
+        rows="4"
+        placeholder="Escreva sua mensagem aqui…"
+      ></textarea>
+    </div>
+
+    <!-- ===================================================
+      TAG <select> + <option>
+      Lista suspensa (dropdown) para escolha de uma opção.
+      <optgroup> agrupa opções com um rótulo visual.
+    =================================================== -->
+    <div class="campo">
+      <label for="curso">Curso</label>
+      <select id="curso" name="curso">
+        <!-- <option value=""> vazio → opção padrão (sem seleção) -->
+        <option value="">-- Selecione --</option>
+        <optgroup label="Tecnologia">
+          <option value="ads">Análise e Desenvolvimento de Sistemas</option>
+          <option value="si">Sistemas de Informação</option>
+          <option value="cc">Ciência da Computação</option>
+        </optgroup>
+        <optgroup label="Outros">
+          <option value="adm">Administração</option>
+          <option value="dir">Direito</option>
+        </optgroup>
+      </select>
+    </div>
+
+    <!-- ===================================================
+      <input type="radio"> – Seleção exclusiva (uma opção)
+      Todos os radios de um grupo DEVEM ter o mesmo 'name'.
+    =================================================== -->
+    <div class="campo">
+      <label>Período</label>
+      <label><input type="radio" name="periodo" value="manha" /> Manhã</label>
+      <label><input type="radio" name="periodo" value="tarde" /> Tarde</label>
+      <label><input type="radio" name="periodo" value="noite" checked /> Noite</label>
+      <!-- checked → pré-seleciona a opção -->
+    </div>
+
+    <!-- ===================================================
+      <input type="checkbox"> – Seleção múltipla (várias opções)
+    =================================================== -->
+    <div class="campo">
+      <label>Interesses (pode marcar mais de um)</label>
+      <label><input type="checkbox" name="interesse" value="html" /> HTML</label>
+      <label><input type="checkbox" name="interesse" value="css"  /> CSS</label>
+      <label><input type="checkbox" name="interesse" value="js"   /> JavaScript</label>
+    </div>
+
+    <!-- ===================================================
+      BOTÕES
+      <button type="submit"> → envia o formulário
+      <button type="reset">  → limpa todos os campos
+      <button type="button"> → botão genérico (sem ação padrão)
+    =================================================== -->
+    <button type="submit">Enviar</button>
+    <button type="reset" style="margin-left:0.5rem; background:#64748b;">Limpar</button>
+
+    <!-- Área onde o JavaScript exibirá a confirmação -->
+    <div id="saida"></div>
+
+  </form>
+
+  <script>
+    // Intercepta o envio do formulário para demonstrar com JavaScript
+    function enviarFormulario(evento) {
+      evento.preventDefault(); // impede o recarregamento da página
+
+      const nome  = document.getElementById('nome').value;
+      const email = document.getElementById('email').value;
+
+      const saida = document.getElementById('saida');
+      saida.style.display = 'block';
+      saida.textContent   = `✅ Formulário recebido! Olá, ${nome} (${email}).`;
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  CSS – Flexbox
+  Conceito: Flexbox (Flexible Box Layout) é um modelo de
+  layout UNIDIMENSIONAL — alinha itens em uma linha OU coluna.
+
+  Como usar:
+    1. Defina o CONTAINER com display: flex
+    2. Os FILHOS diretos se tornam flex items automaticamente
+
+  Dois eixos:
+    • Eixo principal (main axis)  → direção do flex-direction
+    • Eixo cruzado  (cross axis)  → perpendicular ao principal
+  ============================================================
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>03 – Flexbox</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      line-height: 1.7;
+      color: #333;
+      background: #f8fafc;
+    }
+
+    h1 { color: #2563eb; margin-bottom: 0.5rem; }
+    h2 { color: #1e40af; border-bottom: 2px solid #bfdbfe;
+         padding-bottom: 0.25rem; margin: 1.5rem 0 0.75rem; }
+    p  { margin-bottom: 0.5rem; }
+
+    /* ----- Estilo dos itens de demonstração ----- */
+    .item {
+      background: #2563eb;
+      color: #fff;
+      padding: 0.6rem 1rem;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 0.9rem;
+      min-width: 60px;
+      text-align: center;
+    }
+
+    /* Cores alternadas para distinguir cada item */
+    .item:nth-child(2) { background: #7c3aed; }
+    .item:nth-child(3) { background: #16a34a; }
+    .item:nth-child(4) { background: #dc2626; }
+    .item:nth-child(5) { background: #d97706; }
+
+    /* Wrapper de demonstração */
+    .demo {
+      background: #e0f2fe;
+      border: 2px dashed #7dd3fc;
+      border-radius: 8px;
+      padding: 0.75rem;
+      margin-bottom: 1.25rem;
+      min-height: 80px;
+    }
+
+    code { background: #f3f4f6; padding: 0.1rem 0.35rem;
+           border-radius: 4px; font-size: 0.85rem; }
+
+    /* =====================================================
+      PROPRIEDADES DO CONTAINER (pai com display: flex)
+    ===================================================== */
+
+    /* --- flex-direction --- */
+    /* row (padrão): itens em linha (→) */
+    .row        { display: flex; flex-direction: row;            gap: 0.5rem; }
+    /* row-reverse: linha de trás para frente (←) */
+    .row-rev    { display: flex; flex-direction: row-reverse;    gap: 0.5rem; }
+    /* column: itens em coluna (↓) */
+    .col        { display: flex; flex-direction: column;         gap: 0.5rem; }
+    /* column-reverse: coluna de baixo para cima (↑) */
+    .col-rev    { display: flex; flex-direction: column-reverse; gap: 0.5rem; }
+
+    /* --- justify-content → alinha no EIXO PRINCIPAL --- */
+    .jc-start   { display: flex; justify-content: flex-start;    gap: 0.5rem; }
+    .jc-center  { display: flex; justify-content: center;        gap: 0.5rem; }
+    .jc-end     { display: flex; justify-content: flex-end;      gap: 0.5rem; }
+    .jc-between { display: flex; justify-content: space-between; }
+    .jc-around  { display: flex; justify-content: space-around;  }
+    .jc-evenly  { display: flex; justify-content: space-evenly;  }
+
+    /* --- align-items → alinha no EIXO CRUZADO (individual) --- */
+    .ai-start   { display: flex; align-items: flex-start; gap: 0.5rem; min-height: 100px; }
+    .ai-center  { display: flex; align-items: center;     gap: 0.5rem; min-height: 100px; }
+    .ai-end     { display: flex; align-items: flex-end;   gap: 0.5rem; min-height: 100px; }
+    .ai-stretch { display: flex; align-items: stretch;    gap: 0.5rem; min-height: 100px; }
+    .ai-stretch .item { min-height: unset; } /* deixa o stretch funcionar */
+
+    /* --- flex-wrap → quebra de linha --- */
+    .nowrap  { display: flex; flex-wrap: nowrap;  gap: 0.5rem; }
+    .wrap    { display: flex; flex-wrap: wrap;    gap: 0.5rem; }
+
+    /* --- gap → espaço entre os itens --- */
+    .gap-demo { display: flex; gap: 1.5rem; }
+
+    /* =====================================================
+      PROPRIEDADES DOS ITENS (filhos do flex container)
+    ===================================================== */
+
+    /* flex-grow → quanto um item CRESCE para preencher espaço */
+    .grow-demo          { display: flex; gap: 0.5rem; }
+    .grow-demo .item1   { flex-grow: 1; }   /* cresce 1 parte */
+    .grow-demo .item2   { flex-grow: 2; }   /* cresce 2 partes (dobro) */
+    .grow-demo .item3   { flex-grow: 1; }   /* cresce 1 parte */
+
+    /* flex-shrink → quanto um item ENCOLHE quando falta espaço */
+    /* flex-basis → tamanho inicial do item (antes de grow/shrink) */
+    /* Atalho: flex: grow shrink basis */
+    .flex-atalho { display: flex; gap: 0.5rem; }
+    .flex-atalho .item { flex: 1; }  /* flex: 1 1 0 → todos iguais */
+
+    /* align-self → sobrescreve align-items para um item específico */
+    .self-demo { display: flex; align-items: center; gap: 0.5rem; min-height: 120px; }
+    .self-demo .topo   { align-self: flex-start; }
+    .self-demo .meio   { align-self: center;     }
+    .self-demo .baixo  { align-self: flex-end;   }
+    .self-demo .estica { align-self: stretch;    }
+
+    /* order → altera a ordem visual sem alterar o HTML */
+    .order-demo { display: flex; gap: 0.5rem; }
+    .order-demo .a { order: 3; }
+    .order-demo .b { order: 1; }
+    .order-demo .c { order: 2; }
+  </style>
+</head>
+<body>
+
+  <h1>CSS – Flexbox</h1>
+
+  <!-- FLEX-DIRECTION -->
+  <h2>1. flex-direction</h2>
+
+  <p><code>flex-direction: row</code> (padrão – linha)</p>
+  <div class="demo row">
+    <div class="item">1</div><div class="item">2</div><div class="item">3</div>
+  </div>
+
+  <p><code>flex-direction: row-reverse</code></p>
+  <div class="demo row-rev">
+    <div class="item">1</div><div class="item">2</div><div class="item">3</div>
+  </div>
+
+  <p><code>flex-direction: column</code></p>
+  <div class="demo col" style="width:120px;">
+    <div class="item">1</div><div class="item">2</div><div class="item">3</div>
+  </div>
+
+  <!-- JUSTIFY-CONTENT -->
+  <h2>2. justify-content (eixo principal)</h2>
+
+  <p><code>flex-start</code></p>
+  <div class="demo jc-start">
+    <div class="item">A</div><div class="item">B</div><div class="item">C</div>
+  </div>
+
+  <p><code>center</code></p>
+  <div class="demo jc-center">
+    <div class="item">A</div><div class="item">B</div><div class="item">C</div>
+  </div>
+
+  <p><code>flex-end</code></p>
+  <div class="demo jc-end">
+    <div class="item">A</div><div class="item">B</div><div class="item">C</div>
+  </div>
+
+  <p><code>space-between</code></p>
+  <div class="demo jc-between">
+    <div class="item">A</div><div class="item">B</div><div class="item">C</div>
+  </div>
+
+  <p><code>space-evenly</code></p>
+  <div class="demo jc-evenly">
+    <div class="item">A</div><div class="item">B</div><div class="item">C</div>
+  </div>
+
+  <!-- ALIGN-ITEMS -->
+  <h2>3. align-items (eixo cruzado)</h2>
+
+  <p><code>flex-start</code> / <code>center</code> / <code>flex-end</code> / <code>stretch</code></p>
+  <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+    <div>
+      <div class="demo ai-start">
+        <div class="item">A</div><div class="item">B</div>
+      </div>
+      <small>flex-start</small>
+    </div>
+    <div>
+      <div class="demo ai-center">
+        <div class="item">A</div><div class="item">B</div>
+      </div>
+      <small>center</small>
+    </div>
+    <div>
+      <div class="demo ai-end">
+        <div class="item">A</div><div class="item">B</div>
+      </div>
+      <small>flex-end</small>
+    </div>
+    <div>
+      <div class="demo ai-stretch">
+        <div class="item">A</div><div class="item">B</div>
+      </div>
+      <small>stretch</small>
+    </div>
+  </div>
+
+  <!-- FLEX-WRAP -->
+  <h2>4. flex-wrap</h2>
+
+  <p><code>flex-wrap: nowrap</code> (padrão – itens podem encolher)</p>
+  <div class="demo nowrap">
+    <div class="item">Item 1</div><div class="item">Item 2</div>
+    <div class="item">Item 3</div><div class="item">Item 4</div>
+    <div class="item">Item 5</div>
+  </div>
+
+  <p><code>flex-wrap: wrap</code> (quebra linha quando necessário)</p>
+  <div class="demo wrap">
+    <div class="item">Item 1</div><div class="item">Item 2</div>
+    <div class="item">Item 3</div><div class="item">Item 4</div>
+    <div class="item">Item 5</div>
+  </div>
+
+  <!-- FLEX-GROW / FLEX-SHRINK / FLEX-BASIS -->
+  <h2>5. flex-grow (crescimento proporcional)</h2>
+  <div class="demo grow-demo">
+    <div class="item item1">grow:1</div>
+    <div class="item item2">grow:2</div>
+    <div class="item item3">grow:1</div>
+  </div>
+
+  <h2>6. flex: 1 (atalho — todos iguais)</h2>
+  <div class="demo flex-atalho">
+    <div class="item">flex:1</div>
+    <div class="item">flex:1</div>
+    <div class="item">flex:1</div>
+  </div>
+
+  <!-- ALIGN-SELF -->
+  <h2>7. align-self (alinhamento individual)</h2>
+  <div class="demo self-demo">
+    <div class="item topo">topo</div>
+    <div class="item meio">meio</div>
+    <div class="item baixo">baixo</div>
+    <div class="item estica">stretch</div>
+  </div>
+
+  <!-- ORDER -->
+  <h2>8. order (reordenação visual)</h2>
+  <p>No HTML a ordem é A, B, C — no CSS: B(1), C(2), A(3):</p>
+  <div class="demo order-demo">
+    <div class="item a">A (order:3)</div>
+    <div class="item b">B (order:1)</div>
+    <div class="item c">C (order:2)</div>
+  </div>
+
+</body>
+</html>

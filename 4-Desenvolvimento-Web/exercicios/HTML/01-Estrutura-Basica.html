@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  HTML – Estrutura Básica de uma Página
+  Conceito: todo documento HTML segue uma estrutura mínima
+  que informa ao navegador como interpretar o conteúdo.
+
+  Elementos obrigatórios / importantes:
+    <!DOCTYPE html>  → declara que o documento usa HTML5
+    <html>           → elemento raiz; contém TODO o documento
+    <head>           → metadados (não visíveis na página)
+    <body>           → conteúdo visível ao usuário
+  ============================================================
+-->
+<html lang="pt-BR">
+<!--
+  O atributo lang="pt-BR" informa ao navegador e a leitores
+  de tela que o idioma principal é Português do Brasil.
+  Isso é importante para acessibilidade e SEO.
+-->
+
+<head>
+  <!-- =====================================================
+    A TAG <meta charset="UTF-8">
+    Define a codificação de caracteres do documento.
+    UTF-8 suporta acentos, cedilhas e emojis —
+    sempre use esta declaração para evitar caracteres errados.
+  ===================================================== -->
+  <meta charset="UTF-8" />
+
+  <!-- =====================================================
+    A TAG <meta name="viewport">
+    Essencial para sites responsivos (que se adaptam ao
+    tamanho da tela). Sem ela, celulares renderizam a página
+    como se fosse um desktop e tudo fica pequeno.
+  ===================================================== -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- =====================================================
+    A TAG <title>
+    Define o texto exibido na aba do navegador e
+    também é usado pelos buscadores como título do resultado.
+  ===================================================== -->
+  <title>01 – Estrutura Básica do HTML</title>
+
+  <!-- =====================================================
+    A TAG <meta name="description">
+    Descrição curta da página; usada pelos buscadores no
+    trecho exibido nos resultados de pesquisa (SEO).
+  ===================================================== -->
+  <meta name="description" content="Exercício sobre a estrutura básica de um documento HTML5." />
+
+  <!-- =====================================================
+    A TAG <link rel="stylesheet">
+    Vincula uma folha de estilos CSS externa ao documento.
+    Aqui usamos um estilo inline (tag <style>) para manter
+    o exemplo autocontido num único arquivo.
+  ===================================================== -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 750px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      line-height: 1.7;
+      color: #333;
+    }
+    h1 { color: #2563eb; }
+    code {
+      background: #f3f4f6;
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.9rem;
+    }
+    .destaque {
+      background: #eff6ff;
+      border-left: 4px solid #2563eb;
+      padding: 0.75rem 1rem;
+      margin: 1rem 0;
+    }
+  </style>
+</head>
+
+<body>
+  <!--
+    A TAG <body>
+    Tudo que estiver dentro de <body> será exibido na janela
+    do navegador. Aqui ficam textos, imagens, links, etc.
+  -->
+
+  <h1>Estrutura Básica de um Documento HTML</h1>
+
+  <p>
+    Este arquivo demonstra os elementos mínimos que toda página HTML deve ter.
+    Abra o código-fonte (Ctrl+U ou F12) para ver os comentários explicativos.
+  </p>
+
+  <div class="destaque">
+    <strong>Dica:</strong> o navegador IGNORA comentários HTML — eles existem
+    apenas para documentar o código para desenvolvedores.
+    Comentários são escritos assim: <code>&lt;!-- texto --&gt;</code>
+  </div>
+
+  <h2>Resumo da Estrutura</h2>
+  <ol>
+    <li><code>&lt;!DOCTYPE html&gt;</code> – declara HTML5 (deve ser a 1.ª linha)</li>
+    <li><code>&lt;html lang="pt-BR"&gt;</code> – raiz do documento, define o idioma</li>
+    <li><code>&lt;head&gt;</code> – metadados: charset, viewport, title, links CSS/JS</li>
+    <li><code>&lt;body&gt;</code> – conteúdo visível: textos, imagens, vídeos, formulários</li>
+  </ol>
+
+  <!--
+    A TAG <script>
+    Scripts JavaScript podem ser incluídos inline (aqui dentro) ou
+    por meio do atributo src="arquivo.js" (arquivo externo).
+    Colocar o <script> NO FINAL do <body> garante que o HTML já
+    esteja carregado antes de o JavaScript tentar acessá-lo.
+  -->
+  <script>
+    // Exibe no console o título da página — abra o DevTools (F12) para ver
+    console.log('Página carregada:', document.title);
+  </script>
+</body>
+</html>

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  CSS – Responsividade e Media Queries
+  Conceito: design responsivo faz com que a página se adapte
+  a diferentes tamanhos de tela (celular, tablet, desktop)
+  sem precisar criar versões separadas do site.
+
+  Estratégias:
+    1. Unidades flexíveis: %, em, rem, vw, vh
+    2. Imagens fluidas: max-width: 100%
+    3. Media queries: aplica CSS condicional por tamanho de tela
+    4. Mobile-first: escreve CSS para celular e usa min-width
+       para adaptar ao desktop (recomendado)
+  ============================================================
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <!-- viewport é ESSENCIAL para responsividade funcionar -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>05 – Responsividade</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* =====================================================
+      UNIDADES FLEXÍVEIS
+      rem → relativo ao font-size da raiz (<html>), padrão 16px
+            1rem = 16px  |  1.5rem = 24px  |  0.75rem = 12px
+      em  → relativo ao font-size do ELEMENTO PAI
+      %   → relativo ao elemento pai (larguras, alturas)
+      vw  → 1% da largura da viewport (janela)
+      vh  → 1% da altura da viewport
+    ===================================================== */
+    html {
+      font-size: 16px; /* base para cálculo de rem */
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: #f8fafc;
+    }
+
+    /* =====================================================
+      MOBILE-FIRST: escreva primeiro para telas pequenas,
+      depois expanda com min-width.
+
+      Breakpoints comuns:
+        480px  → celulares grandes
+        768px  → tablets
+        1024px → desktops pequenos
+        1280px → desktops grandes
+    ===================================================== */
+
+    /* ----- CABEÇALHO ----- */
+    header {
+      background: #2563eb;
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    header h1 { font-size: 1.25rem; }  /* mobile: menor */
+
+    /* Tablet e acima */
+    @media (min-width: 768px) {
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 2rem;
+        text-align: left;
+      }
+      header h1 { font-size: 1.5rem; }
+    }
+
+    /* ----- NAVEGAÇÃO ----- */
+    nav {
+      background: #1e40af;
+      padding: 0.5rem 1rem;
+    }
+
+    nav ul {
+      list-style: none;
+      /* Mobile: lista vertical */
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    nav a {
+      color: #bfdbfe;
+      text-decoration: none;
+      display: block;
+      padding: 0.4rem 0.5rem;
+    }
+
+    nav a:hover { color: #fff; }
+
+    /* Tablet: navegação horizontal */
+    @media (min-width: 768px) {
+      nav ul {
+        flex-direction: row;
+        gap: 0;
+      }
+    }
+
+    /* ----- LAYOUT PRINCIPAL ----- */
+    .pagina {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    /* Mobile: coluna única */
+    .conteudo {
+      display: grid;
+      grid-template-columns: 1fr;   /* 1 coluna no celular */
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    /* Tablet: 2 colunas */
+    @media (min-width: 768px) {
+      .conteudo {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* Desktop: 3 colunas */
+    @media (min-width: 1024px) {
+      .conteudo {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+    }
+
+    /* ----- CARDS ----- */
+    .card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 1.25rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    .card h2 { color: #2563eb; margin-bottom: 0.5rem; font-size: 1.1rem; }
+
+    /* ----- IMAGEM FLUIDA ----- */
+    /* max-width: 100% impede a imagem de ultrapassar o container */
+    img { max-width: 100%; height: auto; border-radius: 6px; }
+
+    /* ----- TIPOGRAFIA FLUIDA com clamp() ----- */
+    /*
+      clamp(min, preferido, max)
+      O tamanho cresce conforme a tela, respeitando limites.
+      4vw → 4% da largura da viewport
+    */
+    .titulo-fluido {
+      font-size: clamp(1.25rem, 4vw, 2.5rem);
+      color: #2563eb;
+      margin: 1rem 0 0.5rem;
+    }
+
+    /* ----- HERO RESPONSIVO (100vw × 40vh) ----- */
+    .hero {
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem 1rem;
+      min-height: 40vh;  /* 40% da altura da viewport */
+    }
+
+    .hero h2 { font-size: clamp(1.5rem, 5vw, 3rem); margin-bottom: 0.75rem; }
+    .hero p  { font-size: clamp(0.9rem, 2vw, 1.2rem); max-width: 600px; }
+
+    /* ----- TABELA RESPONSIVA ----- */
+    .tabela-wrapper {
+      overflow-x: auto;  /* rola horizontalmente em telas pequenas */
+      margin: 1rem 0;
+    }
+
+    table { width: 100%; border-collapse: collapse; min-width: 500px; }
+    th, td { border: 1px solid #e2e8f0; padding: 0.5rem 0.75rem; text-align: left; }
+    thead th { background: #2563eb; color: #fff; }
+    tbody tr:nth-child(even) { background: #f1f5f9; }
+
+    /* ----- BOTÃO RESPONSIVO ----- */
+    .btn {
+      display: block;        /* mobile: full width */
+      width: 100%;
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      text-align: center;
+      margin-top: 0.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .btn {
+        display: inline-block;  /* tablet+: tamanho natural do conteúdo */
+        width: auto;
+      }
+    }
+
+    /* ----- INDICADOR DE BREAKPOINT (só para debug) ----- */
+    .breakpoint {
+      position: fixed;
+      bottom: 0.5rem;
+      right: 0.5rem;
+      background: rgba(0,0,0,0.7);
+      color: #fff;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+    }
+
+    .breakpoint::after  { content: "📱 < 768px";  }
+    @media (min-width: 768px)  { .breakpoint::after { content: "📟 ≥ 768px (tablet)";  } }
+    @media (min-width: 1024px) { .breakpoint::after { content: "🖥️ ≥ 1024px (desktop)"; } }
+
+    footer { background: #1e293b; color: #94a3b8; text-align: center;
+             padding: 1rem; font-size: 0.85rem; margin-top: 2rem; }
+  </style>
+</head>
+<body>
+
+  <!-- Indicador de breakpoint (útil para estudar responsividade) -->
+  <div class="breakpoint"></div>
+
+  <header>
+    <h1>🎓 ADS – Design Responsivo</h1>
+    <p style="font-size:0.9rem; opacity:0.85;">Redimensione a janela para ver as mudanças</p>
+  </header>
+
+  <nav aria-label="Menu principal">
+    <ul>
+      <li><a href="#">Início</a></li>
+      <li><a href="#">HTML</a></li>
+      <li><a href="#">CSS</a></li>
+      <li><a href="#">JavaScript</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero com clamp() -->
+  <div class="hero">
+    <h2>Aprenda Responsividade</h2>
+    <p>
+      Técnicas como <strong>media queries</strong>, unidades flexíveis
+      (<code>rem</code>, <code>vw</code>, <code>%</code>) e
+      <strong>CSS Grid / Flexbox</strong> tornam qualquer site
+      acessível em qualquer dispositivo.
+    </p>
+  </div>
+
+  <div class="pagina">
+
+    <!-- Tipografia fluida -->
+    <h2 class="titulo-fluido">Tipografia Fluida com clamp()</h2>
+    <p>
+      <code>font-size: clamp(1.25rem, 4vw, 2.5rem)</code> — o título acima
+      cresce conforme a janela, respeitando tamanho mínimo e máximo.
+    </p>
+
+    <!-- Grid de cards responsivo -->
+    <h2 class="titulo-fluido">Grid de Cards</h2>
+    <div class="conteudo">
+      <div class="card">
+        <h2>📱 Mobile First</h2>
+        <p>Escreva CSS para celular primeiro, depois use <code>min-width</code> para adaptar ao desktop.</p>
+        <a class="btn" href="#">Saiba mais</a>
+      </div>
+      <div class="card">
+        <h2>📐 Media Queries</h2>
+        <p>
+          <code>@media (min-width: 768px) { … }</code> aplica estilos apenas acima de 768px.
+        </p>
+      </div>
+      <div class="card">
+        <h2>🖼️ Imagem Fluida</h2>
+        <img
+          src="https://via.placeholder.com/400x150/2563eb/ffffff?text=max-width:100%25"
+          alt="Exemplo de imagem fluida"
+          loading="lazy"
+        />
+        <p style="margin-top:0.5rem;"><code>max-width: 100%</code> impede transbordamento.</p>
+      </div>
+    </div>
+
+    <!-- Tabela responsiva -->
+    <h2 class="titulo-fluido">Tabela Responsiva (overflow-x)</h2>
+    <div class="tabela-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Dispositivo</th>
+            <th>Breakpoint</th>
+            <th>Layout</th>
+            <th>Colunas Grid</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Celular</td><td>&lt; 768px</td><td>Coluna única</td><td>1</td></tr>
+          <tr><td>Tablet</td><td>≥ 768px</td><td>2 colunas</td><td>2</td></tr>
+          <tr><td>Desktop</td><td>≥ 1024px</td><td>3 colunas</td><td>3</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><small>Em telas pequenas a tabela ganha barra de rolagem horizontal (overflow-x: auto).</small></p>
+
+  </div>
+
+  <footer>
+    <p>Curso ADS &copy; <span id="ano"></span></p>
+  </footer>
+
+  <script>
+    document.getElementById('ano').textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>
