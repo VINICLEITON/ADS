@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  HTML – Semântica (HTML5)
+  Conceito: tags semânticas descrevem o SIGNIFICADO do conteúdo,
+  não apenas sua aparência. Elas melhoram:
+    1. Acessibilidade (leitores de tela entendem a estrutura)
+    2. SEO (buscadores entendem o contexto do conteúdo)
+    3. Manutenibilidade (código mais legível para humanos)
+
+  Antes do HTML5, o layout era feito com <div> para tudo.
+  Com HTML5 ganhamos tags com nomes que descrevem o conteúdo.
+  ============================================================
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>06 – HTML Semântico</title>
+  <style>
+    /* Reset e base */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; background: #f0f4f8; color: #333; line-height: 1.7; }
+
+    /* Cores por região para visualizar a estrutura */
+    header  { background: #2563eb; color: #fff; padding: 1rem 2rem; }
+    nav     { background: #1e40af; padding: 0.5rem 2rem; }
+    nav a   { color: #bfdbfe; text-decoration: none; margin-right: 1.5rem; }
+    nav a:hover { color: #fff; text-decoration: underline; }
+
+    .pagina { display: flex; gap: 1.5rem; max-width: 1000px;
+              margin: 1.5rem auto; padding: 0 1rem; }
+
+    main    { flex: 1; }
+    aside   { width: 260px; }
+
+    section, article, aside > div {
+      background: #fff; border-radius: 8px; padding: 1.25rem;
+      margin-bottom: 1.25rem; box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    }
+    section h2, article h3 { color: #2563eb; margin-bottom: 0.5rem; }
+    aside h2 { color: #7c3aed; margin-bottom: 0.5rem; }
+
+    footer  { background: #1e293b; color: #94a3b8; text-align: center;
+              padding: 1.25rem; font-size: 0.85rem; }
+
+    .tag { display: inline-block; background: #dbeafe; color: #1e40af;
+           border-radius: 4px; padding: 0.1rem 0.5rem; font-family: monospace; }
+    address { font-style: normal; }
+    time    { font-weight: bold; }
+  </style>
+</head>
+<body>
+
+  <!--
+    =========================================================
+    <header>
+    Cabeçalho do site ou de uma seção.
+    Geralmente contém o logotipo, título e navegação principal.
+    Pode haver múltiplos <header> na página (um por <article>,
+    por exemplo), mas normalmente existe um cabeçalho global.
+    =========================================================
+  -->
+  <header>
+    <h1>🎓 Blog ADS – HTML Semântico</h1>
+    <p>Aprenda as boas práticas de marcação HTML5</p>
+  </header>
+
+  <!--
+    =========================================================
+    <nav>
+    Bloco de NAVEGAÇÃO principal. Contém os links de menu.
+    Leitores de tela identificam este elemento como "navegação"
+    e permitem ao usuário pular diretamente para o conteúdo.
+    =========================================================
+  -->
+  <nav aria-label="Menu principal">
+    <a href="#">Início</a>
+    <a href="#">Artigos</a>
+    <a href="#">Sobre</a>
+    <a href="#">Contato</a>
+  </nav>
+
+  <div class="pagina">
+
+    <!--
+      =========================================================
+      <main>
+      Conteúdo PRINCIPAL da página — único por documento.
+      Não deve incluir cabeçalhos, rodapés ou barras laterais.
+      =========================================================
+    -->
+    <main>
+
+      <!--
+        =========================================================
+        <section>
+        Agrupa conteúdo TEMATICAMENTE relacionado.
+        Deve ter um título (<h2>, <h3> …) que identifique a seção.
+        Use quando o conteúdo faz sentido sozinho como parte do todo.
+        =========================================================
+      -->
+      <section aria-labelledby="secao-destaques">
+        <h2 id="secao-destaques">📌 Destaques da Semana</h2>
+        <p>Esta semana veja os melhores artigos sobre desenvolvimento web.</p>
+      </section>
+
+      <!--
+        =========================================================
+        <article>
+        Representa um conteúdo INDEPENDENTE e reutilizável:
+        post de blog, notícia, card de produto, comentário.
+        Um <article> deve fazer sentido mesmo fora do contexto da página.
+        =========================================================
+      -->
+      <article>
+        <!-- <header> dentro de <article> → cabeçalho do artigo -->
+        <header>
+          <h3>Como estruturar um documento HTML5 corretamente</h3>
+          <!--
+            <time> → representa datas/horas de forma semântica.
+            O atributo 'datetime' usa o formato ISO 8601 (yyyy-mm-dd)
+            para que máquinas entendam a data, mesmo que o texto
+            exibido seja em outro formato.
+          -->
+          <p>Publicado em <time datetime="2025-08-10">10 de agosto de 2025</time></p>
+        </header>
+
+        <p>
+          Usar tags semânticas do HTML5 — como
+          <span class="tag">&lt;header&gt;</span>,
+          <span class="tag">&lt;main&gt;</span>,
+          <span class="tag">&lt;article&gt;</span> e
+          <span class="tag">&lt;footer&gt;</span> —
+          torna o código mais legível para desenvolvedores, motores de busca
+          e tecnologias assistivas.
+        </p>
+
+        <!--
+          <figure> + <figcaption> → conteúdo visual com legenda.
+          Pode ser imagem, diagrama, código ou qualquer ilustração.
+        -->
+        <figure>
+          <img
+            src="https://via.placeholder.com/560x120/2563eb/ffffff?text=Diagrama+de+Estrutura+HTML5"
+            alt="Diagrama ilustrativo da estrutura semântica do HTML5"
+            width="560"
+            height="120"
+            loading="lazy"
+            style="max-width:100%; border-radius:4px;"
+          />
+          <figcaption>Figura 1 – Estrutura semântica típica de uma página HTML5.</figcaption>
+        </figure>
+
+        <!-- <footer> dentro de <article> → rodapé do artigo -->
+        <footer style="margin-top:0.75rem; font-size:0.85rem; color:#64748b;">
+          Categorias: HTML, Semântica, Acessibilidade
+        </footer>
+      </article>
+
+      <article>
+        <header>
+          <h3>CSS Grid vs Flexbox: quando usar cada um?</h3>
+          <p>Publicado em <time datetime="2025-08-15">15 de agosto de 2025</time></p>
+        </header>
+        <p>
+          Flexbox é ideal para layouts unidimensionais (linha <em>ou</em> coluna).
+          CSS Grid brilha em layouts bidimensionais (linhas <em>e</em> colunas ao mesmo tempo).
+        </p>
+      </article>
+
+    </main>
+
+    <!--
+      =========================================================
+      <aside>
+      Conteúdo SECUNDÁRIO, relacionado ao conteúdo principal
+      mas que pode ser removido sem perder o sentido do todo:
+      barras laterais, widgets, anúncios, links relacionados.
+      =========================================================
+    -->
+    <aside aria-label="Barra lateral">
+
+      <div>
+        <h2>🔗 Links Úteis</h2>
+        <ul>
+          <li><a href="https://developer.mozilla.org" target="_blank" rel="noopener noreferrer">MDN Web Docs</a></li>
+          <li><a href="https://www.w3schools.com"     target="_blank" rel="noopener noreferrer">W3Schools</a></li>
+          <li><a href="https://caniuse.com"           target="_blank" rel="noopener noreferrer">Can I Use</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <!--
+          <address>
+          Informações de contato do autor ou da organização.
+          NÃO é para endereços físicos genéricos — é para
+          o contato do responsável pelo conteúdo.
+        -->
+        <h2>📬 Contato</h2>
+        <address>
+          <p>Autor: <strong>Prof. ADS</strong></p>
+          <p>E-mail: <a href="mailto:prof@ads.edu.br">prof@ads.edu.br</a></p>
+        </address>
+      </div>
+
+    </aside>
+  </div>
+
+  <!--
+    =========================================================
+    <footer>
+    Rodapé do site ou de uma seção.
+    Contém informações como copyright, links legais, mapa do site.
+    =========================================================
+  -->
+  <footer>
+    <p>Blog ADS &copy; <span id="ano"></span> – Todos os direitos reservados.</p>
+    <nav aria-label="Links do rodapé">
+      <a href="#" style="color:#94a3b8;">Política de Privacidade</a> |
+      <a href="#" style="color:#94a3b8;">Termos de Uso</a>
+    </nav>
+  </footer>
+
+  <script>
+    // Insere o ano atual no rodapé dinamicamente
+    document.getElementById('ano').textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>

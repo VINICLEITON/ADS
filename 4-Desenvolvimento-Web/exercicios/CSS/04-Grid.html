@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  CSS – Grid Layout
+  Conceito: CSS Grid é um modelo de layout BIDIMENSIONAL —
+  permite posicionar itens em LINHAS e COLUNAS ao mesmo tempo.
+
+  Diferença do Flexbox:
+    • Flexbox  → 1 dimensão (linha OU coluna)
+    • CSS Grid → 2 dimensões (linha E coluna ao mesmo tempo)
+
+  Como usar:
+    1. Defina o CONTAINER com display: grid
+    2. Defina as colunas com grid-template-columns
+    3. Defina as linhas com grid-template-rows (opcional)
+    4. Os filhos são colocados automaticamente nas células
+  ============================================================
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>04 – CSS Grid</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 950px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      line-height: 1.7;
+      color: #333;
+      background: #f8fafc;
+    }
+
+    h1 { color: #2563eb; margin-bottom: 0.5rem; }
+    h2 { color: #1e40af; border-bottom: 2px solid #bfdbfe;
+         padding-bottom: 0.25rem; margin: 1.5rem 0 0.75rem; }
+    p  { margin-bottom: 0.5rem; }
+    code { background: #f3f4f6; padding: 0.1rem 0.35rem;
+           border-radius: 4px; font-size: 0.85rem; }
+
+    /* Wrapper de demonstração */
+    .demo {
+      background: #e0f2fe;
+      border: 2px dashed #7dd3fc;
+      border-radius: 8px;
+      padding: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    /* Célula padrão */
+    .celula {
+      background: #2563eb;
+      color: #fff;
+      padding: 0.75rem;
+      border-radius: 6px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    /* Cores alternadas */
+    .celula:nth-child(2) { background: #7c3aed; }
+    .celula:nth-child(3) { background: #16a34a; }
+    .celula:nth-child(4) { background: #dc2626; }
+    .celula:nth-child(5) { background: #d97706; }
+    .celula:nth-child(6) { background: #0891b2; }
+
+    /* =====================================================
+      1. GRID-TEMPLATE-COLUMNS
+      Define quantas colunas tem o grid e seus tamanhos.
+
+      Unidades:
+        px         → tamanho fixo
+        %          → porcentagem do container
+        fr         → fração do espaço disponível (como flex-grow)
+        auto       → tamanho pelo conteúdo
+        minmax()   → tamanho mínimo e máximo
+        repeat()   → repete um padrão
+    ===================================================== */
+
+    /* 3 colunas iguais usando fr */
+    .grid-3col {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr; /* ou: repeat(3, 1fr) */
+      gap: 0.5rem;
+    }
+
+    /* Colunas com tamanhos diferentes */
+    .grid-misto {
+      display: grid;
+      grid-template-columns: 200px 1fr 2fr;
+      gap: 0.5rem;
+    }
+
+    /* repeat(n, tamanho) → repete n vezes */
+    .grid-repeat {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.5rem;
+    }
+
+    /* =====================================================
+      2. GAP (espaço entre as células)
+      gap: linha coluna
+      row-gap    → apenas espaço entre linhas
+      column-gap → apenas espaço entre colunas
+    ===================================================== */
+    .grid-gap {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem 0.5rem; /* 1rem entre linhas, 0.5rem entre colunas */
+    }
+
+    /* =====================================================
+      3. GRID-COLUMN e GRID-ROW (posicionamento de itens)
+      Permitem que um item ocupe mais de uma célula.
+      
+      grid-column: inicio / fim
+      grid-row:    inicio / fim
+      
+      'span N' → ocupa N células a partir da posição atual
+    ===================================================== */
+    .grid-span {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+    }
+
+    /* Ocupa da coluna 1 até a coluna 3 (span 2 colunas) */
+    .span-2col { grid-column: 1 / 3; }
+
+    /* Ocupa toda a linha (span 3 colunas) */
+    .span-all  { grid-column: 1 / -1; }  /* -1 = última linha de grade */
+
+    /* =====================================================
+      4. GRID-TEMPLATE-AREAS
+      Define um layout nomeando as áreas com strings.
+      Muito intuitivo para layouts de página completa.
+    ===================================================== */
+    .grid-areas {
+      display: grid;
+      grid-template-columns: 1fr 3fr 1fr;
+      grid-template-rows: auto 1fr auto;
+      grid-template-areas:
+        "header  header  header"
+        "sidebar main    aside"
+        "footer  footer  footer";
+      gap: 0.5rem;
+      min-height: 220px;
+    }
+
+    .area-header  { grid-area: header;  background: #2563eb; }
+    .area-sidebar { grid-area: sidebar; background: #7c3aed; }
+    .area-main    { grid-area: main;    background: #16a34a; }
+    .area-aside   { grid-area: aside;   background: #d97706; }
+    .area-footer  { grid-area: footer;  background: #64748b; }
+
+    .area-header, .area-sidebar, .area-main,
+    .area-aside,  .area-footer {
+      color: #fff; padding: 0.75rem; border-radius: 6px;
+      font-weight: bold; text-align: center;
+    }
+
+    /* =====================================================
+      5. AUTO-FIT com minmax — Grid Responsivo
+      auto-fit → cria colunas automáticas que se encaixam
+      minmax(min, max) → cada coluna tem min. 200px, máx. 1fr
+      Resultado: colunas se reorganizam conforme a tela.
+    ===================================================== */
+    .grid-responsivo {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.75rem;
+    }
+
+    /* =====================================================
+      6. JUSTIFY-ITEMS e ALIGN-ITEMS no Grid
+      justify-items → alinha conteúdo no eixo de linha (horizontal)
+      align-items   → alinha conteúdo no eixo de coluna (vertical)
+    ===================================================== */
+    .grid-alinhamento {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      justify-items: center;  /* centraliza horizontalmente dentro da célula */
+      align-items: center;    /* centraliza verticalmente dentro da célula */
+      min-height: 100px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <h1>CSS – Grid Layout</h1>
+
+  <!-- 1. Grid básico com fr -->
+  <h2>1. grid-template-columns com fr</h2>
+  <p><code>grid-template-columns: 1fr 1fr 1fr</code> → 3 colunas iguais:</p>
+  <div class="demo grid-3col">
+    <div class="celula">1</div><div class="celula">2</div><div class="celula">3</div>
+    <div class="celula">4</div><div class="celula">5</div><div class="celula">6</div>
+  </div>
+
+  <p><code>grid-template-columns: 200px 1fr 2fr</code> → tamanhos mistos:</p>
+  <div class="demo grid-misto">
+    <div class="celula">200px</div>
+    <div class="celula">1fr</div>
+    <div class="celula">2fr</div>
+  </div>
+
+  <!-- 2. repeat() -->
+  <h2>2. repeat()</h2>
+  <p><code>grid-template-columns: repeat(4, 1fr)</code> → 4 colunas iguais:</p>
+  <div class="demo grid-repeat">
+    <div class="celula">A</div><div class="celula">B</div>
+    <div class="celula">C</div><div class="celula">D</div>
+    <div class="celula">E</div><div class="celula">F</div>
+  </div>
+
+  <!-- 3. gap -->
+  <h2>3. gap</h2>
+  <p><code>gap: 1rem 0.5rem</code> → espaços distintos entre linhas e colunas:</p>
+  <div class="demo grid-gap">
+    <div class="celula">1</div><div class="celula">2</div><div class="celula">3</div>
+    <div class="celula">4</div><div class="celula">5</div><div class="celula">6</div>
+  </div>
+
+  <!-- 4. span (ocupar múltiplas células) -->
+  <h2>4. grid-column / grid-row (span)</h2>
+  <div class="demo grid-span">
+    <div class="celula span-2col">span 2 colunas (col 1 a 3)</div>
+    <div class="celula">3</div>
+    <div class="celula span-all">span todas as colunas (1 / -1)</div>
+    <div class="celula">1</div><div class="celula">2</div><div class="celula">3</div>
+  </div>
+
+  <!-- 5. grid-template-areas -->
+  <h2>5. grid-template-areas</h2>
+  <p>Layout de página completa com áreas nomeadas:</p>
+  <div class="demo grid-areas">
+    <div class="area-header">header</div>
+    <div class="area-sidebar">sidebar</div>
+    <div class="area-main">main</div>
+    <div class="area-aside">aside</div>
+    <div class="area-footer">footer</div>
+  </div>
+
+  <!-- 6. auto-fit responsivo -->
+  <h2>6. auto-fit + minmax (Grid Responsivo)</h2>
+  <p><code>repeat(auto-fit, minmax(180px, 1fr))</code> → reajusta automaticamente:</p>
+  <div class="demo grid-responsivo">
+    <div class="celula">Card 1</div><div class="celula">Card 2</div>
+    <div class="celula">Card 3</div><div class="celula">Card 4</div>
+    <div class="celula">Card 5</div>
+  </div>
+  <p><small>Redimensione a janela para ver as colunas se reorganizarem automaticamente.</small></p>
+
+  <!-- 7. alinhamento -->
+  <h2>7. justify-items e align-items</h2>
+  <p><code>justify-items: center; align-items: center</code> → conteúdo centralizado em cada célula:</p>
+  <div class="demo grid-alinhamento">
+    <div class="celula" style="width:80px;">A</div>
+    <div class="celula" style="width:80px;">B</div>
+    <div class="celula" style="width:80px;">C</div>
+  </div>
+
+</body>
+</html>

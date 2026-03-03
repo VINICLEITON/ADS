@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  JavaScript – Arrays e Objetos
+  Conceito:
+    Array  → lista ordenada de valores, acessados por ÍNDICE
+    Objeto → coleção de pares chave:valor, acessados por CHAVE
+
+  Em JavaScript, arrays são objetos especiais e ambos são
+  passados por REFERÊNCIA (não por valor como os primitivos).
+  ============================================================
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>06 – Arrays e Objetos (JS)</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; max-width: 820px; margin: 2rem auto;
+           padding: 0 1rem; line-height: 1.7; color: #333; background: #f8fafc; }
+    h1 { color: #2563eb; margin-bottom: 0.5rem; }
+    h2 { color: #1e40af; border-bottom: 2px solid #bfdbfe;
+         padding-bottom: 0.25rem; margin: 1.5rem 0 0.75rem; }
+    .saida {
+      background: #1e293b; color: #f1f5f9; font-family: monospace;
+      padding: 1rem; border-radius: 8px; white-space: pre-wrap;
+      margin-bottom: 1rem; font-size: 0.9rem; min-height: 2rem;
+    }
+    button { background: #2563eb; color: #fff; border: none; padding: 0.5rem 1.2rem;
+             border-radius: 6px; cursor: pointer; font-size: 0.9rem; margin-bottom: 0.5rem; }
+    button:hover { background: #1d4ed8; }
+  </style>
+</head>
+<body>
+
+  <h1>JavaScript – Arrays e Objetos</h1>
+
+  <h2>1. Arrays – Criação e Acesso</h2>
+  <button onclick="demoArrayBasico()">Executar</button>
+  <div class="saida" id="saida-arr1">Clique em "Executar"</div>
+
+  <h2>2. Arrays – Métodos Principais</h2>
+  <button onclick="demoArrayMetodos()">Executar</button>
+  <div class="saida" id="saida-arr2">Clique em "Executar"</div>
+
+  <h2>3. Arrays – Desestruturação e Spread</h2>
+  <button onclick="demoArrayDesestruturacao()">Executar</button>
+  <div class="saida" id="saida-arr3">Clique em "Executar"</div>
+
+  <h2>4. Objetos – Criação e Acesso</h2>
+  <button onclick="demoObjBasico()">Executar</button>
+  <div class="saida" id="saida-obj1">Clique em "Executar"</div>
+
+  <h2>5. Objetos – Métodos de Objeto</h2>
+  <button onclick="demoObjMetodos()">Executar</button>
+  <div class="saida" id="saida-obj2">Clique em "Executar"</div>
+
+  <h2>6. Objetos – Desestruturação, Spread e Clonagem</h2>
+  <button onclick="demoObjDesestruturacao()">Executar</button>
+  <div class="saida" id="saida-obj3">Clique em "Executar"</div>
+
+  <h2>7. Array de Objetos (Coleção)</h2>
+  <button onclick="demoCombinado()">Executar</button>
+  <div class="saida" id="saida-comb">Clique em "Executar"</div>
+
+  <script>
+    function exibir(id, txt) {
+      document.getElementById(id).textContent = txt;
+    }
+
+    // ============================================================
+    //  1. ARRAYS – Criação e Acesso
+    // ============================================================
+    function demoArrayBasico() {
+      let s = '';
+
+      // Criação com literal []
+      const frutas = ['maçã', 'banana', 'uva', 'pera'];
+      s += `frutas = [${frutas.join(', ')}]\n`;
+      s += `length = ${frutas.length}\n\n`;
+
+      // Acesso por índice (começa em 0)
+      s += `frutas[0]  = ${frutas[0]}  (primeiro)\n`;
+      s += `frutas[3]  = ${frutas[3]}  (último)\n`;
+      s += `frutas[-1] = ${frutas[-1]}  (undefined — JS não tem índice negativo direto)\n`;
+      s += `frutas.at(-1) = ${frutas.at(-1)}  (último com .at())\n`;
+
+      // Arrays são mutáveis
+      frutas[1] = 'kiwi'; // substitui "banana" por "kiwi"
+      s += `\nApós frutas[1] = "kiwi": [${frutas.join(', ')}]\n`;
+
+      // Array com tipos mistos (possível, mas evite em produção)
+      const misto = [42, 'texto', true, null, { chave: 'valor' }];
+      s += `\nArray misto: [${misto.map(String).join(', ')}]\n`;
+
+      // Array.from() – cria array a partir de iterável
+      const letras = Array.from('ADS');
+      s += `Array.from("ADS") = [${letras.join(', ')}]\n`;
+
+      // Array(n).fill() – cria array preenchido
+      const zeros = new Array(5).fill(0);
+      s += `Array(5).fill(0)  = [${zeros.join(', ')}]\n`;
+
+      exibir('saida-arr1', s);
+    }
+
+    // ============================================================
+    //  2. ARRAYS – Métodos Principais
+    // ============================================================
+    function demoArrayMetodos() {
+      let s = '';
+      let arr = [1, 2, 3];
+      s += `arr inicial: [${arr.join(', ')}]\n\n`;
+
+      // ----- Adicionar/Remover -----
+      arr.push(4);          s += `push(4)       → [${arr}]\n`;
+      arr.unshift(0);       s += `unshift(0)    → [${arr}]\n`;
+      const ultimo    = arr.pop();      s += `pop()         → removeu ${ultimo}  → [${arr}]\n`;
+      const primeiro  = arr.shift();    s += `shift()       → removeu ${primeiro} → [${arr}]\n`;
+
+      // splice(início, qtdRemover, ...inserir) → modifica e retorna removidos
+      const removidos = arr.splice(1, 2, 10, 20); // remove 2 a partir do índice 1, insere 10 e 20
+      s += `splice(1,2,10,20)→ removeu [${removidos}], arr = [${arr}]\n\n`;
+
+      // ----- Busca -----
+      const nums = [5, 12, 8, 130, 44];
+      s += `nums = [${nums}]\n`;
+      s += `indexOf(8)         = ${nums.indexOf(8)}   (índice ou -1)\n`;
+      s += `includes(130)      = ${nums.includes(130)}\n`;
+      s += `find(n > 10)       = ${nums.find(n => n > 10)}\n`;
+      s += `findIndex(n > 10)  = ${nums.findIndex(n => n > 10)}\n\n`;
+
+      // ----- Transformação -----
+      const palavras = ['hello', 'world', 'ads'];
+      s += `join(" | ")        = "${palavras.join(' | ')}"\n`;
+      const rev = [...palavras].reverse(); // spread para não mutar o original
+      s += `reverse()          = [${rev}]\n`;
+      const ord = [...nums].sort((a, b) => a - b); // sort com comparador numérico
+      s += `sort(asc)          = [${ord}]\n`;
+
+      // slice(início, fim) → cópia sem modificar o original
+      const fatia = nums.slice(1, 4);
+      s += `slice(1,4)         = [${fatia}]\n`;
+
+      // flat() / flatMap()
+      const aninhado = [1, [2, 3], [4, [5, 6]]];
+      s += `\nflat()             = [${aninhado.flat()}]\n`;
+      s += `flat(Infinity)     = [${aninhado.flat(Infinity)}]\n`;
+
+      exibir('saida-arr2', s);
+    }
+
+    // ============================================================
+    //  3. ARRAYS – Desestruturação e Spread
+    // ============================================================
+    function demoArrayDesestruturacao() {
+      let s = '';
+
+      const cores = ['vermelho', 'verde', 'azul', 'amarelo'];
+
+      // Desestruturação: extrai valores por posição
+      const [primeira, segunda, ...restante] = cores;
+      s += `primeira  = ${primeira}\n`;
+      s += `segunda   = ${segunda}\n`;
+      s += `restante  = [${restante}]\n\n`;
+
+      // Ignorar elementos
+      const [, , terceira] = cores; // vírgulas pulam posições
+      s += `terceira  = ${terceira}\n\n`;
+
+      // Swap de variáveis sem variável temporária
+      let a = 10, b = 20;
+      [a, b] = [b, a];
+      s += `Swap: a = ${a}, b = ${b}\n\n`;
+
+      // Spread: expande array como lista de elementos
+      const inicio = [1, 2, 3];
+      const fim    = [7, 8, 9];
+      const completo = [...inicio, 4, 5, 6, ...fim]; // combina arrays
+      s += `[...inicio, 4,5,6, ...fim] = [${completo}]\n\n`;
+
+      // Cópia rasa com spread (evita mutação)
+      const original = [1, 2, 3];
+      const copia    = [...original];
+      copia.push(4);
+      s += `original: [${original}]  copia: [${copia}]  (independentes)\n`;
+
+      exibir('saida-arr3', s);
+    }
+
+    // ============================================================
+    //  4. OBJETOS – Criação e Acesso
+    // ============================================================
+    function demoObjBasico() {
+      let s = '';
+
+      // Objeto literal: pares chave: valor
+      const aluno = {
+        nome:    'Ana Souza',
+        idade:   22,
+        curso:   'ADS',
+        ativo:   true,
+        notas:   [7.5, 8.0, 9.0],  // array como propriedade
+        endereco: {                  // objeto aninhado
+          cidade: 'São Paulo',
+          estado: 'SP'
+        }
+      };
+
+      // Acesso por ponto (dot notation)
+      s += `aluno.nome           = ${aluno.nome}\n`;
+      s += `aluno.notas[1]       = ${aluno.notas[1]}\n`;
+      s += `aluno.endereco.cidade= ${aluno.endereco.cidade}\n\n`;
+
+      // Acesso por colchete (bracket notation) — útil com chaves dinâmicas
+      const campo = 'curso';
+      s += `aluno["idade"]       = ${aluno['idade']}\n`;
+      s += `aluno[campo]         = ${aluno[campo]}  (chave dinâmica)\n\n`;
+
+      // Adição e remoção de propriedades
+      aluno.email = 'ana@email.com'; // adiciona nova propriedade
+      s += `Adicionou email: ${aluno.email}\n`;
+
+      delete aluno.ativo;           // remove propriedade
+      s += `Removeu "ativo": ${'ativo' in aluno}\n\n`;
+
+      // Verificar se propriedade existe
+      s += `"nome" in aluno   = ${'nome' in aluno}\n`;
+      s += `"salario" in aluno= ${'salario' in aluno}\n`;
+      s += `hasOwnProperty    = ${aluno.hasOwnProperty('notas')}\n`;
+
+      exibir('saida-obj1', s);
+    }
+
+    // ============================================================
+    //  5. OBJETOS – Métodos de Objeto (funções como propriedades)
+    // ============================================================
+    function demoObjMetodos() {
+      let s = '';
+
+      const retangulo = {
+        largura:  10,
+        altura:   5,
+
+        // Método: função dentro de objeto
+        area() {
+          // 'this' → referência ao próprio objeto
+          return this.largura * this.altura;
+        },
+
+        perimetro() {
+          return 2 * (this.largura + this.altura);
+        },
+
+        // Método com retorno de string
+        toString() {
+          return `Retângulo ${this.largura}×${this.altura}`;
+        }
+      };
+
+      s += `${retangulo.toString()}\n`;
+      s += `Área      = ${retangulo.area()}\n`;
+      s += `Perímetro = ${retangulo.perimetro()}\n\n`;
+
+      // Object.keys() → array de chaves
+      const pessoa = { nome: 'Bruno', idade: 25, cidade: 'RJ' };
+      s += `Object.keys(pessoa)    = [${Object.keys(pessoa)}]\n`;
+      // Object.values() → array de valores
+      s += `Object.values(pessoa)  = [${Object.values(pessoa)}]\n`;
+      // Object.entries() → array de [chave, valor]
+      s += 'Object.entries(pessoa):\n';
+      for (const [k, v] of Object.entries(pessoa)) {
+        s += `  ${k}: ${v}\n`;
+      }
+
+      exibir('saida-obj2', s);
+    }
+
+    // ============================================================
+    //  6. OBJETOS – Desestruturação, Spread e Clonagem
+    // ============================================================
+    function demoObjDesestruturacao() {
+      let s = '';
+
+      const usuario = { id: 1, nome: 'Carla', cargo: 'Dev', nivel: 3 };
+
+      // Desestruturação de objeto
+      const { nome, cargo } = usuario;
+      s += `nome  = ${nome}\n`;
+      s += `cargo = ${cargo}\n`;
+
+      // Renomear ao desestruturar
+      const { nome: nomeCompleto, nivel: exp } = usuario;
+      s += `nomeCompleto = ${nomeCompleto}\n`;
+      s += `exp          = ${exp}\n\n`;
+
+      // Valor padrão na desestruturação
+      const { email = 'não informado', nome: n2 } = usuario;
+      s += `email (padrão) = ${email}\n\n`;
+
+      // Spread em objetos: copia / combina propriedades
+      const base = { a: 1, b: 2 };
+      const extra = { c: 3, d: 4 };
+      const combinado = { ...base, ...extra, e: 5 };
+      s += `{...base, ...extra, e:5} = ${JSON.stringify(combinado)}\n\n`;
+
+      // Clonagem rasa (shallow clone)
+      const original = { x: 1, y: { z: 2 } };
+      const clone    = { ...original };
+      clone.x = 99;         // não afeta original (primitivo)
+      clone.y.z = 99;       // AFETA original (referência compartilhada!)
+      s += `original.x = ${original.x}  (não afetado)\n`;
+      s += `original.y.z = ${original.y.z}  (AFETADO — objeto aninhado é referência!)\n\n`;
+
+      // Clonagem profunda com structuredClone (ES2022)
+      const orig2 = { a: 1, b: { c: 2 } };
+      const deep  = structuredClone(orig2);
+      deep.b.c = 99;
+      s += `structuredClone: orig2.b.c = ${orig2.b.c}  (não afetado — cópia profunda)`;
+
+      exibir('saida-obj3', s);
+    }
+
+    // ============================================================
+    //  7. ARRAY DE OBJETOS (Coleção)
+    //  Padrão mais comum em aplicações reais (representa dados do banco).
+    // ============================================================
+    function demoCombinado() {
+      let s = '';
+
+      const alunos = [
+        { id: 1, nome: 'Ana',    nota: 9.0, ativo: true  },
+        { id: 2, nome: 'Bruno',  nota: 4.5, ativo: true  },
+        { id: 3, nome: 'Carla',  nota: 7.5, ativo: false },
+        { id: 4, nome: 'Daniel', nota: 8.0, ativo: true  },
+        { id: 5, nome: 'Emília', nota: 3.0, ativo: true  }
+      ];
+
+      // map: extrair nomes
+      const nomes = alunos.map(a => a.nome);
+      s += `Nomes: [${nomes.join(', ')}]\n\n`;
+
+      // filter: apenas ativos e aprovados
+      const aprovados = alunos.filter(a => a.ativo && a.nota >= 5);
+      s += `Ativos e aprovados:\n`;
+      aprovados.forEach(a => s += `  ${a.nome} (${a.nota})\n`);
+
+      // reduce: calcular média
+      const soma = alunos.reduce((acc, a) => acc + a.nota, 0);
+      const media = soma / alunos.length;
+      s += `\nMédia geral: ${media.toFixed(2)}\n`;
+
+      // sort: ordenar por nota (decrescente)
+      const porNota = [...alunos].sort((a, b) => b.nota - a.nota);
+      s += '\nRanking por nota:\n';
+      porNota.forEach((a, i) => s += `  ${i + 1}º ${a.nome.padEnd(8)} ${a.nota}\n`);
+
+      // find: buscar por id
+      const procurado = alunos.find(a => a.id === 3);
+      s += `\nBusca por id=3: ${procurado.nome}`;
+
+      exibir('saida-comb', s);
+    }
+  </script>
+
+</body>
+</html>

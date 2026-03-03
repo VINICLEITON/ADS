@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  CSS – Seletores e Propriedades
+  Conceito: CSS (Cascading Style Sheets) controla a
+  aparência dos elementos HTML. Uma regra CSS tem a forma:
+
+      seletor {
+          propriedade: valor;
+      }
+
+  Tipos de seletores: tag, classe, id, atributo, pseudo-classe,
+  pseudo-elemento, combinadores.
+  ============================================================
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>01 – Seletores e Propriedades CSS</title>
+  <style>
+
+    /* =====================================================
+      RESET BÁSICO
+      Navegadores aplicam estilos padrão diferentes entre si.
+      Um reset equaliza essas diferenças antes de estilizarmos.
+    ===================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 820px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      line-height: 1.7;
+      color: #333;
+      background: #f8fafc;
+    }
+
+    /* =====================================================
+      1. SELETOR DE TAG (tipo)
+      Aplica o estilo a TODOS os elementos daquele tipo.
+    ===================================================== */
+    h1 {
+      color: #2563eb;       /* cor do texto */
+      font-size: 1.8rem;    /* tamanho da fonte */
+      margin-bottom: 0.5rem;
+    }
+
+    h2 {
+      color: #1e40af;
+      border-bottom: 2px solid #bfdbfe;
+      padding-bottom: 0.25rem;
+      margin: 1.5rem 0 0.5rem;
+    }
+
+    p {
+      margin-bottom: 0.75rem;
+    }
+
+    /* =====================================================
+      2. SELETOR DE CLASSE (.)
+      Aplica o estilo a qualquer elemento que tenha
+      class="nome-da-classe". Uma classe pode ser
+      reutilizada em vários elementos.
+    ===================================================== */
+    .destaque {
+      background-color: #fffbeb;   /* cor de fundo */
+      border-left: 4px solid #f59e0b;
+      padding: 0.75rem 1rem;
+      border-radius: 0 6px 6px 0;
+      margin-bottom: 1rem;
+    }
+
+    .verde  { color: #16a34a; font-weight: bold; }
+    .azul   { color: #2563eb; font-weight: bold; }
+    .vermelho { color: #dc2626; font-weight: bold; }
+
+    /* =====================================================
+      3. SELETOR DE ID (#)
+      Aplica o estilo ao elemento com aquele id ÚNICO.
+      IDs devem ser únicos por página — use classes para
+      estilizar múltiplos elementos.
+    ===================================================== */
+    #titulo-principal {
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      color: #fff;
+      padding: 1.5rem;
+      border-radius: 8px;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    /* =====================================================
+      4. SELETOR DE ATRIBUTO ([atributo])
+      Seleciona elementos com base em atributos HTML.
+    ===================================================== */
+    /* Todos os links externos (href começando com "https") */
+    a[href^="https"] {
+      color: #2563eb;
+      text-decoration: none;
+    }
+
+    /* Links que abrem em nova aba */
+    a[target="_blank"]::after {
+      content: " ↗";   /* pseudo-elemento: adiciona conteúdo após o elemento */
+      font-size: 0.75rem;
+    }
+
+    /* Inputs do tipo text */
+    input[type="text"] {
+      border: 2px solid #2563eb;
+      border-radius: 6px;
+      padding: 0.4rem 0.75rem;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    /* =====================================================
+      5. PSEUDO-CLASSES (:estado)
+      Aplicam estilos com base no ESTADO ou POSIÇÃO do elemento.
+    ===================================================== */
+    /* :hover → quando o mouse está sobre o elemento */
+    .botao {
+      display: inline-block;
+      background: #2563eb;
+      color: #fff;
+      padding: 0.5rem 1.25rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s; /* transição suave */
+      margin: 0.25rem;
+    }
+
+    .botao:hover {
+      background: #1d4ed8;
+      transform: translateY(-2px); /* sobe levemente ao passar o mouse */
+    }
+
+    .botao:active {
+      transform: translateY(0);    /* volta à posição ao clicar */
+    }
+
+    /* :nth-child(n) → seleciona o enésimo filho */
+    .lista-demo li:nth-child(odd)  { background: #dbeafe; }
+    .lista-demo li:nth-child(even) { background: #eff6ff; }
+
+    /* :first-child e :last-child */
+    .lista-demo li:first-child { font-weight: bold; border-top: 2px solid #2563eb; }
+    .lista-demo li:last-child  { font-style: italic; border-bottom: 2px solid #2563eb; }
+
+    .lista-demo li {
+      padding: 0.4rem 0.75rem;
+      list-style: none;
+    }
+
+    /* :not(seletor) → exclui elementos do estilo */
+    p:not(.destaque) {
+      /* parágrafos que NÃO têm a classe "destaque" */
+    }
+
+    /* =====================================================
+      6. PSEUDO-ELEMENTOS (::parte)
+      Estilizam partes específicas de um elemento.
+    ===================================================== */
+    /* ::first-letter → primeira letra do parágrafo */
+    .primeiro-paragrafo::first-letter {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #2563eb;
+      float: left;
+      line-height: 1;
+      margin-right: 0.1rem;
+    }
+
+    /* ::before e ::after → inserem conteúdo virtual antes/depois */
+    .com-icone::before {
+      content: "💡 ";  /* conteúdo inserido via CSS, não no HTML */
+    }
+
+    /* =====================================================
+      7. COMBINADORES
+    ===================================================== */
+    /* Descendente (espaço): todos os <strong> dentro de .secao */
+    .secao strong { color: #7c3aed; }
+
+    /* Filho direto (>): apenas <p> diretamente filho de .caixa */
+    .caixa > p { border-left: 3px solid #a3e635; padding-left: 0.5rem; }
+
+    /* Irmão adjacente (+): <p> imediatamente após <h3> */
+    h3 + p { color: #64748b; font-style: italic; }
+
+    /* Irmão geral (~): todos os <p> irmãos após .marcador */
+    .marcador ~ p { background: #fef9c3; padding: 0.25rem 0.5rem; }
+
+    /* =====================================================
+      8. ESPECIFICIDADE
+      Quando dois seletores conflitam, o mais ESPECÍFICO vence.
+      Ordem crescente de especificidade:
+        tag (0,0,1) < classe/atributo (0,1,0) < id (1,0,0)
+      !important sobrepõe tudo (use apenas em último recurso).
+    ===================================================== */
+    .especificidade { color: green; }   /* classe → ganha */
+    p.especificidade { color: blue; }   /* tag + classe → ainda mais específico */
+
+    .caixa {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1rem;
+      margin: 0.75rem 0;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Seletor de ID -->
+  <div id="titulo-principal">
+    <h1 style="color:#fff; margin:0;">CSS – Seletores e Propriedades</h1>
+    <p style="margin:0; opacity:0.85;">Aprenda a selecionar e estilizar elementos</p>
+  </div>
+
+  <!-- Seletor de tag -->
+  <h2>1. Seletor de Tag</h2>
+  <p>Todo <code>&lt;p&gt;</code> recebe <code>margin-bottom</code> automaticamente.</p>
+  <p>Todo <code>&lt;h2&gt;</code> recebe borda inferior azul.</p>
+
+  <!-- Seletor de classe -->
+  <h2>2. Seletor de Classe</h2>
+  <div class="destaque">
+    Este bloco usa a classe <code>.destaque</code> — borda esquerda âmbar e fundo amarelado.
+  </div>
+  <p>Cores via classe:
+    <span class="verde">verde (.verde)</span>,
+    <span class="azul">azul (.azul)</span>,
+    <span class="vermelho">vermelho (.vermelho)</span>.
+  </p>
+
+  <!-- Seletor de atributo -->
+  <h2>3. Seletor de Atributo</h2>
+  <p>
+    <a href="https://developer.mozilla.org" target="_blank" rel="noopener noreferrer">MDN Web Docs</a>
+    — link externo com seta ↗ adicionada via CSS <code>::after</code>.
+  </p>
+  <p>Campo com borda azul via <code>input[type="text"]</code>:</p>
+  <input type="text" placeholder="Digite algo…" />
+
+  <!-- Pseudo-classes -->
+  <h2>4. Pseudo-classes</h2>
+  <span class="botao">Passe o mouse aqui</span>
+  <span class="botao">Outro botão</span>
+
+  <ul class="lista-demo" style="margin-top:0.75rem;">
+    <li>Primeiro item (first-child + negrito)</li>
+    <li>Segundo item</li>
+    <li>Terceiro item</li>
+    <li>Quarto item</li>
+    <li>Quinto item (last-child + itálico)</li>
+  </ul>
+
+  <!-- Pseudo-elementos -->
+  <h2>5. Pseudo-elementos</h2>
+  <p class="primeiro-paragrafo">
+    Esta frase demonstra o pseudo-elemento <code>::first-letter</code>:
+    a primeira letra é maior e colorida, sem nenhuma tag HTML extra.
+  </p>
+  <p class="com-icone">
+    Este parágrafo usa <code>::before</code> para inserir um ícone via CSS.
+  </p>
+
+  <!-- Combinadores -->
+  <h2>6. Combinadores</h2>
+  <div class="secao caixa">
+    <p>Descendente: <strong>este strong fica roxo</strong> dentro de .secao.</p>
+    <div>
+      <p>Filho indireto — borda verde NÃO aparece (não é filho direto de .caixa).</p>
+    </div>
+    <p>Filho direto — <strong>borda verde aparece</strong> pois é &lt;p&gt; direto de .caixa.</p>
+  </div>
+
+  <div>
+    <h3>Irmão adjacente (+)</h3>
+    <p>Este parágrafo é irmão adjacente do h3 → fica cinza e itálico.</p>
+    <p>Este parágrafo não é adjacente — sem estilo especial.</p>
+  </div>
+
+  <!-- Especificidade -->
+  <h2>7. Especificidade</h2>
+  <p class="especificidade">
+    Este parágrafo usa <code>p.especificidade</code> (tag + classe) → cor azul.
+    A regra apenas com <code>.especificidade</code> (verde) perde para a mais específica.
+  </p>
+
+</body>
+</html>

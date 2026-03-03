@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  HTML – Links e Imagens
+  Conceito: <a> (âncora) e <img> são os elementos que tornam
+  a Web navegável e visual. Links conectam páginas; imagens
+  comunicam visualmente.
+  ============================================================
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>03 – Links e Imagens</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 750px; margin: 2rem auto;
+           padding: 0 1rem; line-height: 1.7; color: #333; }
+    h1 { color: #2563eb; }
+    h2 { color: #1e40af; border-bottom: 2px solid #bfdbfe; padding-bottom: 0.25rem; }
+    .caixa { background: #f8fafc; border: 1px solid #e2e8f0;
+             border-radius: 6px; padding: 1rem; margin: 1rem 0; }
+    img { max-width: 100%; height: auto; border-radius: 6px; }
+  </style>
+</head>
+<body>
+
+  <h1>Links e Imagens em HTML</h1>
+
+  <!-- =====================================================
+    TAG <a> – ÂNCORA / LINK
+    O atributo OBRIGATÓRIO é href (hypertext reference),
+    que indica o destino do link.
+
+    Valores comuns de href:
+      • URL absoluta → https://exemplo.com
+      • URL relativa → ../index.html  ou  pagina.html
+      • Âncora interna → #secao-id  (rola até o elemento com aquele id)
+      • E-mail → mailto:email@exemplo.com
+      • Telefone → tel:+5511999999999
+  ===================================================== -->
+  <h2>1. Link Externo</h2>
+  <div class="caixa">
+    <!--
+      target="_blank" → abre o link em uma nova aba
+      rel="noopener noreferrer" → segurança: impede que a nova
+      aba acesse o objeto window da página atual (prevenção de
+      ataques de phishing via window.opener).
+      SEMPRE use rel="noopener noreferrer" com target="_blank".
+    -->
+    <a href="https://developer.mozilla.org" target="_blank" rel="noopener noreferrer">
+      MDN Web Docs – documentação oficial das tecnologias web
+    </a>
+  </div>
+
+  <!-- =====================================================
+    LINK RELATIVO
+    Navega entre páginas do mesmo projeto sem precisar
+    informar o domínio completo.
+  ===================================================== -->
+  <h2>2. Link Relativo (dentro do projeto)</h2>
+  <div class="caixa">
+    <!-- Navega para outro arquivo HTML na mesma pasta -->
+    <a href="02-Textos-e-Listas.html">← Voltar: Textos e Listas</a>
+    &nbsp;|&nbsp;
+    <a href="04-Formularios.html">Avançar: Formulários →</a>
+  </div>
+
+  <!-- =====================================================
+    ÂNCORA INTERNA
+    Rola a página até o elemento que tenha o id correspondente.
+    Útil para criar um "sumário" no início de páginas longas.
+  ===================================================== -->
+  <h2>3. Âncora Interna (scroll)</h2>
+  <div class="caixa">
+    <p>Ir para: <a href="#secao-imagens">seção de Imagens</a></p>
+  </div>
+
+  <!-- =====================================================
+    LINK DE E-MAIL E TELEFONE
+    Ao clicar, o sistema operacional abre o cliente de e-mail
+    ou o discador telefônico configurado.
+  ===================================================== -->
+  <h2>4. Link de E-mail e Telefone</h2>
+  <div class="caixa">
+    <!-- mailto: abre o cliente de e-mail com o destinatário preenchido -->
+    <a href="mailto:contato@exemplo.com">Enviar e-mail</a>
+    &nbsp;|&nbsp;
+    <!-- tel: abre o discador no celular -->
+    <a href="tel:+5511999999999">Ligar: (11) 99999-9999</a>
+  </div>
+
+  <!-- =====================================================
+    TAG <img> – IMAGEM
+    Elementos vazios (self-closing): não têm tag de fechamento.
+
+    Atributos OBRIGATÓRIOS:
+      • src  → caminho (URL) da imagem
+      • alt  → texto alternativo: exibido se a imagem não
+               carregar e lido por leitores de tela (acessibilidade).
+               NUNCA omita o alt — se a imagem for decorativa,
+               use alt="" (string vazia).
+
+    Atributos OPCIONAIS úteis:
+      • width / height → dimensões em pixels (evita reflow)
+      • loading="lazy" → carregamento adiado (melhora performance)
+      • title          → dica de ferramenta ao passar o mouse
+  ===================================================== -->
+  <h2 id="secao-imagens">5. Imagens</h2>
+
+  <div class="caixa">
+    <!-- Imagem de uma URL externa com dimensões e carregamento lazy -->
+    <img
+      src="https://via.placeholder.com/600x200/2563eb/ffffff?text=Imagem+de+Exemplo"
+      alt="Retângulo azul com o texto 'Imagem de Exemplo'"
+      width="600"
+      height="200"
+      loading="lazy"
+      title="Esta é uma imagem de exemplo"
+    />
+    <p><small>Imagem carregada de URL externa via <code>src</code>.</small></p>
+  </div>
+
+  <!-- =====================================================
+    TAG <figure> e <figcaption>
+    Semanticamente correto para associar uma imagem à sua
+    legenda. <figure> agrupa o conteúdo visual e
+    <figcaption> fornece a legenda descritiva.
+  ===================================================== -->
+  <h2>6. Imagem com Legenda (&lt;figure&gt; + &lt;figcaption&gt;)</h2>
+  <figure>
+    <img
+      src="https://via.placeholder.com/400x150/16a34a/ffffff?text=figura+com+legenda"
+      alt="Exemplo de figure com figcaption"
+      width="400"
+      height="150"
+      loading="lazy"
+    />
+    <figcaption>Figura 1 – Uso de &lt;figure&gt; e &lt;figcaption&gt; para imagem com legenda.</figcaption>
+  </figure>
+
+  <!-- =====================================================
+    IMAGEM COMO LINK
+    Envolva a tag <img> com uma tag <a> para tornar a
+    imagem clicável.
+  ===================================================== -->
+  <h2>7. Imagem Clicável (link + imagem)</h2>
+  <div class="caixa">
+    <a href="https://developer.mozilla.org" target="_blank" rel="noopener noreferrer">
+      <img
+        src="https://via.placeholder.com/300x80/dc2626/ffffff?text=Clique+aqui"
+        alt="Banner clicável que abre o MDN"
+        width="300"
+        height="80"
+      />
+    </a>
+  </div>
+
+</body>
+</html>

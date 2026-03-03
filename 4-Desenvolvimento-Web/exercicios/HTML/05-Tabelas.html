@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  HTML – Tabelas
+  Conceito: a tag <table> organiza dados em linhas e colunas.
+  Use tabelas APENAS para dados tabulares (nunca para layout!).
+  Para layout, use CSS Flexbox ou Grid.
+  ============================================================
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>05 – Tabelas</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 850px; margin: 2rem auto;
+           padding: 0 1rem; line-height: 1.7; color: #333; }
+    h1 { color: #2563eb; }
+    h2 { color: #1e40af; border-bottom: 2px solid #bfdbfe; padding-bottom: 0.25rem; }
+
+    /* Estilo da tabela */
+    table {
+      width: 100%;
+      border-collapse: collapse; /* remove espaço entre bordas */
+      margin: 1rem 0;
+    }
+    caption {
+      font-weight: bold;
+      font-size: 1.05rem;
+      margin-bottom: 0.5rem;
+      color: #1e40af;
+    }
+    th, td {
+      border: 1px solid #cbd5e1;
+      padding: 0.6rem 0.9rem;
+      text-align: left;
+    }
+    thead th {
+      background: #2563eb;
+      color: #fff;
+    }
+    tbody tr:nth-child(even) {
+      background: #f1f5f9; /* linhas alternadas para legibilidade */
+    }
+    tbody tr:hover {
+      background: #dbeafe;
+    }
+    tfoot td {
+      background: #e2e8f0;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Tabelas em HTML</h1>
+
+  <!-- =====================================================
+    ESTRUTURA BÁSICA DE UMA TABELA
+
+    <table>   → container principal
+    <caption> → título/legenda da tabela (acessibilidade)
+    <thead>   → grupo de cabeçalho (linha com rótulos das colunas)
+    <tbody>   → grupo do corpo (linhas de dados)
+    <tfoot>   → grupo do rodapé (totais, resumos)
+    <tr>      → table row — uma linha
+    <th>      → table header — célula de cabeçalho (negrito, centralizada)
+    <td>      → table data — célula de dado comum
+  ===================================================== -->
+
+  <h2>1. Tabela Simples – Notas dos Alunos</h2>
+
+  <table>
+    <!-- caption é lido por leitores de tela antes dos dados -->
+    <caption>Tabela 1 – Notas do 1.º Bimestre</caption>
+
+    <!-- THEAD: cabeçalho com os nomes das colunas -->
+    <thead>
+      <tr>
+        <!-- scope="col" melhora acessibilidade: informa que o th é cabeçalho de coluna -->
+        <th scope="col">Aluno</th>
+        <th scope="col">HTML</th>
+        <th scope="col">CSS</th>
+        <th scope="col">JavaScript</th>
+        <th scope="col">Média</th>
+      </tr>
+    </thead>
+
+    <!-- TBODY: linhas de dados -->
+    <tbody>
+      <tr>
+        <td>Ana Souza</td>
+        <td>9.0</td>
+        <td>8.5</td>
+        <td>9.5</td>
+        <td>9.0</td>
+      </tr>
+      <tr>
+        <td>Bruno Lima</td>
+        <td>7.0</td>
+        <td>8.0</td>
+        <td>6.5</td>
+        <td>7.2</td>
+      </tr>
+      <tr>
+        <td>Carla Dias</td>
+        <td>10.0</td>
+        <td>9.0</td>
+        <td>8.0</td>
+        <td>9.0</td>
+      </tr>
+      <tr>
+        <td>Daniel Reis</td>
+        <td>5.5</td>
+        <td>6.0</td>
+        <td>5.0</td>
+        <td>5.5</td>
+      </tr>
+    </tbody>
+
+    <!-- TFOOT: rodapé com resumo -->
+    <tfoot>
+      <tr>
+        <td colspan="4">Média da turma</td>
+        <!-- colspan="4" → célula ocupa 4 colunas -->
+        <td>7.7</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <!-- =====================================================
+    COLSPAN e ROWSPAN
+    colspan → célula se expande horizontalmente (colunas)
+    rowspan → célula se expande verticalmente (linhas)
+  ===================================================== -->
+  <h2>2. Tabela com colspan e rowspan – Grade de Horários</h2>
+
+  <table>
+    <caption>Tabela 2 – Grade de Horários (colspan e rowspan)</caption>
+    <thead>
+      <tr>
+        <th scope="col">Horário</th>
+        <th scope="col">Segunda</th>
+        <th scope="col">Terça</th>
+        <th scope="col">Quarta</th>
+        <th scope="col">Quinta</th>
+        <th scope="col">Sexta</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">08h – 10h</th>
+        <td>HTML</td>
+        <!-- colspan="2" → esta célula ocupa 2 colunas (Terça + Quarta) -->
+        <td colspan="2">CSS Avançado</td>
+        <td>JavaScript</td>
+        <td>Livre</td>
+      </tr>
+      <tr>
+        <th scope="row">10h – 12h</th>
+        <!-- rowspan="2" → esta célula ocupa 2 linhas (10h–12h e 13h–15h) -->
+        <td rowspan="2">Projeto Integrador</td>
+        <td>Banco de Dados</td>
+        <td>Redes</td>
+        <td>Banco de Dados</td>
+        <td>JavaScript</td>
+      </tr>
+      <tr>
+        <th scope="row">13h – 15h</th>
+        <!--
+          Não há <td> para a coluna "Segunda" aqui porque
+          a célula acima usa rowspan="2" e já a ocupa.
+        -->
+        <td>POO</td>
+        <td>HTML</td>
+        <td>POO</td>
+        <td>CSS</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- =====================================================
+    TABELA ACESSÍVEL COM scope="row"
+    O atributo scope nos <th> indica se o cabeçalho
+    pertence a uma linha ("row") ou coluna ("col"),
+    ajudando leitores de tela a associar célula ao cabeçalho.
+  ===================================================== -->
+  <h2>3. Boas Práticas de Acessibilidade em Tabelas</h2>
+  <ul>
+    <li>Use <code>&lt;caption&gt;</code> para descrever o propósito da tabela.</li>
+    <li>Use <code>&lt;th scope="col"&gt;</code> nos cabeçalhos de coluna.</li>
+    <li>Use <code>&lt;th scope="row"&gt;</code> nos cabeçalhos de linha.</li>
+    <li>Use <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code> e <code>&lt;tfoot&gt;</code>
+        para estruturar semanticamente.</li>
+    <li><strong>Nunca</strong> use tabelas para layout de página — use CSS Flexbox/Grid.</li>
+  </ul>
+
+</body>
+</html>

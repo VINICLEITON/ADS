@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  JavaScript – Laços de Repetição
+  Conceito: laços executam um bloco de código repetidamente
+  enquanto uma condição for verdadeira.
+
+  Tipos:
+    1. for            → número de repetições conhecido
+    2. while          → repete enquanto condição for true
+    3. do...while     → executa pelo menos uma vez
+    4. for...of       → itera sobre valores de iteráveis (arrays, strings)
+    5. for...in       → itera sobre chaves de objetos
+    6. forEach / map / filter / reduce → métodos de array (funcional)
+  ============================================================
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>04 – Laços (JS)</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; max-width: 820px; margin: 2rem auto;
+           padding: 0 1rem; line-height: 1.7; color: #333; background: #f8fafc; }
+    h1 { color: #2563eb; margin-bottom: 0.5rem; }
+    h2 { color: #1e40af; border-bottom: 2px solid #bfdbfe;
+         padding-bottom: 0.25rem; margin: 1.5rem 0 0.75rem; }
+    .saida {
+      background: #1e293b; color: #f1f5f9; font-family: monospace;
+      padding: 1rem; border-radius: 8px; white-space: pre-wrap;
+      margin-bottom: 1rem; font-size: 0.9rem; min-height: 2rem;
+    }
+    button { background: #2563eb; color: #fff; border: none; padding: 0.5rem 1.2rem;
+             border-radius: 6px; cursor: pointer; font-size: 0.9rem; margin-bottom: 0.5rem; }
+    button:hover { background: #1d4ed8; }
+  </style>
+</head>
+<body>
+
+  <h1>JavaScript – Laços de Repetição</h1>
+
+  <h2>1. for</h2>
+  <button onclick="demoFor()">Executar</button>
+  <div class="saida" id="saida-for">Clique em "Executar"</div>
+
+  <h2>2. while</h2>
+  <button onclick="demoWhile()">Executar</button>
+  <div class="saida" id="saida-while">Clique em "Executar"</div>
+
+  <h2>3. do...while</h2>
+  <button onclick="demoDoWhile()">Executar</button>
+  <div class="saida" id="saida-dowhile">Clique em "Executar"</div>
+
+  <h2>4. for...of (arrays e strings)</h2>
+  <button onclick="demoForOf()">Executar</button>
+  <div class="saida" id="saida-forof">Clique em "Executar"</div>
+
+  <h2>5. for...in (objetos)</h2>
+  <button onclick="demoForIn()">Executar</button>
+  <div class="saida" id="saida-forin">Clique em "Executar"</div>
+
+  <h2>6. Métodos Funcionais: forEach, map, filter, reduce</h2>
+  <button onclick="demoFuncional()">Executar</button>
+  <div class="saida" id="saida-func">Clique em "Executar"</div>
+
+  <h2>7. break e continue</h2>
+  <button onclick="demoBreakContinue()">Executar</button>
+  <div class="saida" id="saida-break">Clique em "Executar"</div>
+
+  <script>
+    function exibir(id, txt) {
+      document.getElementById(id).textContent = txt;
+    }
+
+    // ============================================================
+    //  1. FOR
+    //  Sintaxe: for (inicialização; condição; incremento) { }
+    //    inicialização → executada uma vez antes do loop
+    //    condição      → verificada antes de CADA iteração
+    //    incremento    → executado ao FIM de cada iteração
+    // ============================================================
+    function demoFor() {
+      let s = '';
+
+      // Contando de 1 a 5
+      s += 'Contando de 1 a 5:\n';
+      for (let i = 1; i <= 5; i++) {
+        s += `  i = ${i}\n`;
+      }
+
+      // Percorrendo um array com índice
+      const frutas = ['maçã', 'banana', 'uva', 'pera'];
+      s += '\nPercorrendo array com for:\n';
+      for (let i = 0; i < frutas.length; i++) {
+        // frutas.length → tamanho do array (4)
+        // índices vão de 0 a length-1
+        s += `  [${i}] ${frutas[i]}\n`;
+      }
+
+      // For decrescente
+      s += '\nContagem regressiva:\n';
+      for (let i = 5; i >= 1; i--) {
+        s += `  ${i}`;
+        if (i === 1) s += ' 🚀';
+        s += '\n';
+      }
+
+      // For aninhado: tabuada
+      s += '\nTabuada do 3:\n';
+      for (let i = 1; i <= 5; i++) {
+        s += `  3 × ${i} = ${3 * i}\n`;
+      }
+
+      exibir('saida-for', s);
+    }
+
+    // ============================================================
+    //  2. WHILE
+    //  Repete enquanto a condição for verdadeira.
+    //  Use quando NÃO sabe de antemão quantas vezes vai repetir.
+    //  Atenção: se a condição nunca virar false → loop infinito!
+    // ============================================================
+    function demoWhile() {
+      let s = '';
+
+      // Dividindo por 2 até ser menor que 1
+      let n = 64;
+      s += `Dividindo ${n} por 2 repetidamente:\n`;
+      while (n >= 1) {
+        s += `  n = ${n}\n`;
+        n = n / 2;   // a variável de controle DEVE mudar para evitar loop infinito
+      }
+
+      // Simulando leitura de dados até encontrar sentinela
+      const entradas = [10, 20, -1, 30]; // -1 é o sentinela (sinal de parada)
+      let indice = 0;
+      let soma = 0;
+      s += '\nSoma até encontrar -1:\n';
+      while (entradas[indice] !== -1) {
+        soma += entradas[indice];
+        s += `  soma parcial = ${soma}\n`;
+        indice++;
+      }
+      s += `  Total = ${soma}`;
+
+      exibir('saida-while', s);
+    }
+
+    // ============================================================
+    //  3. DO...WHILE
+    //  Garante pelo menos UMA execução, independente da condição.
+    //  Condição verificada AO FIM de cada iteração.
+    // ============================================================
+    function demoDoWhile() {
+      let s = '';
+
+      // Executa ao menos uma vez mesmo com condição falsa
+      let x = 10;
+      s += 'do...while com condição falsa desde o início:\n';
+      do {
+        s += `  x = ${x} (executou!)\n`;
+        x++;
+      } while (x < 10); // falso desde o início — mas executou 1 vez
+
+      // Validação: garante que o usuário entra com dado válido
+      // (Aqui simulamos com um array de tentativas)
+      const tentativas = [0, -5, 0, 7]; // simula entradas do usuário
+      let tentativa = 0;
+      let valor;
+      s += '\nLoop de validação (simulado):\n';
+      do {
+        valor = tentativas[tentativa];
+        s += `  Tentativa ${tentativa + 1}: valor = ${valor}\n`;
+        tentativa++;
+      } while (valor <= 0 && tentativa < tentativas.length);
+
+      s += `  Valor válido encontrado: ${valor}`;
+
+      exibir('saida-dowhile', s);
+    }
+
+    // ============================================================
+    //  4. FOR...OF
+    //  Itera sobre os VALORES de qualquer iterável:
+    //  arrays, strings, Sets, Maps, NodeLists…
+    //  Mais limpo que o for com índice quando não precisa do índice.
+    // ============================================================
+    function demoForOf() {
+      let s = '';
+
+      // Array
+      const linguagens = ['HTML', 'CSS', 'JavaScript', 'Python'];
+      s += 'for...of em array:\n';
+      for (const lang of linguagens) {
+        s += `  ${lang}\n`;
+      }
+
+      // String: itera caractere a caractere
+      const palavra = 'ADS';
+      s += '\nfor...of em string:\n';
+      for (const char of palavra) {
+        s += `  '${char}'\n`;
+      }
+
+      // Obtendo índice com entries()
+      s += '\nfor...of com entries() (índice + valor):\n';
+      for (const [i, valor] of linguagens.entries()) {
+        // Desestruturação: [i, valor] = [índice, elemento]
+        s += `  [${i}] ${valor}\n`;
+      }
+
+      exibir('saida-forof', s);
+    }
+
+    // ============================================================
+    //  5. FOR...IN
+    //  Itera sobre as CHAVES (propriedades enumeráveis) de um objeto.
+    //  NÃO use for...in em arrays — use for...of ou forEach.
+    // ============================================================
+    function demoForIn() {
+      let s = '';
+
+      const aluno = {
+        nome:   'Ana Souza',
+        curso:  'ADS',
+        periodo: 'Noturno',
+        media:   8.5
+      };
+
+      s += 'for...in em objeto:\n';
+      for (const chave in aluno) {
+        // chave → nome da propriedade (string)
+        // aluno[chave] → valor acessado dinamicamente
+        s += `  ${chave}: ${aluno[chave]}\n`;
+      }
+
+      // Object.entries() → array de [chave, valor] (alternativa moderna)
+      s += '\nObject.entries() + for...of:\n';
+      for (const [chave, valor] of Object.entries(aluno)) {
+        s += `  ${chave.padEnd(8)} → ${valor}\n`;
+      }
+
+      exibir('saida-forin', s);
+    }
+
+    // ============================================================
+    //  6. MÉTODOS FUNCIONAIS DE ARRAY
+    //  forEach  → executa uma função para cada elemento (sem retorno)
+    //  map      → TRANSFORMA cada elemento, retorna NOVO array
+    //  filter   → FILTRA elementos, retorna NOVO array com os que passam
+    //  reduce   → ACUMULA os elementos em um único valor
+    //  find     → retorna o PRIMEIRO elemento que passa no teste
+    //  some     → true se ALGUM elemento passa no teste
+    //  every    → true se TODOS os elementos passam no teste
+    // ============================================================
+    function demoFuncional() {
+      let s = '';
+      const notas = [6.5, 8.0, 4.5, 9.0, 5.0, 7.5];
+      s += `notas = [${notas.join(', ')}]\n\n`;
+
+      // forEach: executa algo com cada elemento (sem retornar novo array)
+      s += 'forEach (exibe cada nota):\n  ';
+      notas.forEach(nota => {
+        s += nota + ' ';
+      });
+      s += '\n\n';
+
+      // map: transforma cada elemento (dobrar as notas)
+      const notasAumentadas = notas.map(nota => Math.min(nota + 1, 10));
+      s += `map (+1 ponto, max 10):\n  [${notasAumentadas.join(', ')}]\n\n`;
+
+      // filter: mantém apenas os elementos que satisfazem a condição
+      const aprovados = notas.filter(nota => nota >= 5);
+      s += `filter (notas >= 5):\n  [${aprovados.join(', ')}]\n\n`;
+
+      // reduce: acumula todos os valores em um só
+      const soma = notas.reduce((acumulador, nota) => acumulador + nota, 0);
+      const media = soma / notas.length;
+      s += `reduce (soma = ${soma}, média = ${media.toFixed(2)})\n\n`;
+
+      // find: retorna o primeiro elemento que atende à condição
+      const primeiraReprovacao = notas.find(nota => nota < 5);
+      s += `find (primeira nota < 5): ${primeiraReprovacao}\n\n`;
+
+      // some: true se ALGUM elemento atende
+      s += `some (alguma nota >= 9?): ${notas.some(n => n >= 9)}\n`;
+
+      // every: true se TODOS atendem
+      s += `every (todas >= 5?): ${notas.every(n => n >= 5)}\n`;
+
+      // Encadeamento (chaining)
+      const mediaAprovados = notas
+        .filter(n => n >= 5)           // filtra aprovados
+        .reduce((acc, n, _, arr) => acc + n / arr.length, 0); // média
+      s += `\nChaining – média dos aprovados: ${mediaAprovados.toFixed(2)}`;
+
+      exibir('saida-func', s);
+    }
+
+    // ============================================================
+    //  7. BREAK e CONTINUE
+    //  break    → INTERROMPE o laço completamente
+    //  continue → PULA a iteração atual e vai para a próxima
+    // ============================================================
+    function demoBreakContinue() {
+      let s = '';
+
+      // break: para quando encontrar o número 4
+      s += 'break (para ao encontrar 4):\n  ';
+      for (let i = 1; i <= 10; i++) {
+        if (i === 4) {
+          s += `[parou em ${i}]`;
+          break; // sai do laço imediatamente
+        }
+        s += i + ' ';
+      }
+      s += '\n\n';
+
+      // continue: pula números pares
+      s += 'continue (pula pares):\n  ';
+      for (let i = 1; i <= 10; i++) {
+        if (i % 2 === 0) {
+          continue; // pula esta iteração, vai para i++
+        }
+        s += i + ' '; // só impares chegam aqui
+      }
+      s += '\n\n';
+
+      // Encontrar primeiro número divisível por 7 num array
+      const numeros = [3, 14, 7, 21, 8, 49, 5];
+      s += `Primeiro divisível por 7 em [${numeros.join(', ')}]:\n  `;
+      for (const n of numeros) {
+        if (n % 7 === 0) {
+          s += `encontrado: ${n}`;
+          break;
+        }
+      }
+
+      exibir('saida-break', s);
+    }
+  </script>
+
+</body>
+</html>

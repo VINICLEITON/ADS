@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  HTML – Textos e Listas
+  Conceito: as tags de texto organizam o conteúdo em títulos,
+  parágrafos, ênfases e listas, criando a hierarquia
+  semântica que buscadores e leitores de tela entendem.
+  ============================================================
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>02 – Textos e Listas</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 750px; margin: 2rem auto;
+           padding: 0 1rem; line-height: 1.7; color: #333; }
+    h1 { color: #2563eb; }
+    h2 { color: #1e40af; border-bottom: 2px solid #bfdbfe; padding-bottom: 0.25rem; }
+    .caixa { background: #f8fafc; border: 1px solid #e2e8f0;
+             border-radius: 6px; padding: 1rem; margin: 1rem 0; }
+  </style>
+</head>
+<body>
+
+  <h1>Textos e Listas em HTML</h1>
+
+  <!-- =====================================================
+    TÍTULOS (headings): <h1> até <h6>
+    Representam a hierarquia do conteúdo.
+    Regra importante: use APENAS UM <h1> por página
+    (é o título principal). Os demais (<h2>, <h3> …)
+    organizam subtítulos em ordem decrescente de importância.
+  ===================================================== -->
+  <h2>1. Títulos</h2>
+  <div class="caixa">
+    <h1>h1 – Título Principal</h1>
+    <h2>h2 – Seção</h2>
+    <h3>h3 – Subseção</h3>
+    <h4>h4 – Sub-subseção</h4>
+    <h5>h5 – Nível 5</h5>
+    <h6>h6 – Nível 6 (menor)</h6>
+  </div>
+
+  <!-- =====================================================
+    PARÁGRAFO: <p>
+    Representa um bloco de texto. O navegador adiciona
+    automaticamente uma margem entre parágrafos.
+  ===================================================== -->
+  <h2>2. Parágrafos e Formatação Inline</h2>
+  <p>
+    Este é um parágrafo normal. Textos longos fluem dentro do elemento
+    e quebram linha automaticamente de acordo com a largura da tela.
+  </p>
+  <p>
+    Dentro de um parágrafo podemos ter:
+    <!-- <strong> → negrito semântico (conteúdo importante) -->
+    <strong>texto em negrito</strong>,
+    <!-- <em> → itálico semântico (ênfase) -->
+    <em>texto em itálico</em>,
+    <!-- <mark> → texto destacado / marcado -->
+    <mark>texto marcado</mark>,
+    <!-- <del> → texto deletado / riscado -->
+    <del>texto riscado</del>,
+    <!-- <ins> → texto inserido / sublinhado -->
+    <ins>texto inserido</ins>,
+    <!-- <small> → texto menor (rodapés, avisos legais) -->
+    <small>texto pequeno</small> e
+    <!-- <code> → trechos de código (fonte monoespaçada) -->
+    <code>codigo()</code>.
+  </p>
+
+  <!-- =====================================================
+    QUEBRA DE LINHA: <br>
+    Insere uma quebra de linha SEM iniciar novo parágrafo.
+    Use com moderação — prefira CSS margin/padding para
+    espaçamentos maiores.
+  ===================================================== -->
+  <p>
+    Linha 1<br />
+    Linha 2 (quebra forçada com &lt;br&gt;)
+  </p>
+
+  <!-- =====================================================
+    LISTA NÃO ORDENADA: <ul> (unordered list)
+    Itens sem ordem específica, marcados com bullet (•).
+    Cada item é envolto por <li> (list item).
+  ===================================================== -->
+  <h2>3. Lista Não Ordenada (&lt;ul&gt;)</h2>
+  <ul>
+    <li>HTML – estrutura da página</li>
+    <li>CSS – estilo e layout</li>
+    <li>JavaScript – comportamento e interatividade</li>
+    <!-- Listas podem ser aninhadas: uma <ul> dentro de um <li> -->
+    <li>Ferramentas
+      <ul>
+        <li>VS Code</li>
+        <li>Chrome DevTools</li>
+      </ul>
+    </li>
+  </ul>
+
+  <!-- =====================================================
+    LISTA ORDENADA: <ol> (ordered list)
+    Itens em sequência numerada (1, 2, 3 …).
+    O atributo 'type' altera o marcador (A, a, I, i).
+    O atributo 'start' define o número inicial.
+  ===================================================== -->
+  <h2>4. Lista Ordenada (&lt;ol&gt;)</h2>
+  <ol>
+    <li>Abrir o editor de código</li>
+    <li>Criar o arquivo <code>index.html</code></li>
+    <li>Escrever a estrutura básica</li>
+    <li>Salvar e abrir no navegador</li>
+  </ol>
+
+  <!-- ol com algarismos romanos -->
+  <ol type="I" start="1">
+    <li>Planejar</li>
+    <li>Desenvolver</li>
+    <li>Testar</li>
+    <li>Publicar</li>
+  </ol>
+
+  <!-- =====================================================
+    LISTA DE DEFINIÇÃO: <dl> (description list)
+    Usada para pares termo / definição (como um glossário).
+    <dt> → termo (definition term)
+    <dd> → definição (description detail)
+  ===================================================== -->
+  <h2>5. Lista de Definição (&lt;dl&gt;)</h2>
+  <dl>
+    <dt><strong>HTML</strong></dt>
+    <dd>HyperText Markup Language – linguagem de marcação para estrutura de páginas web.</dd>
+
+    <dt><strong>CSS</strong></dt>
+    <dd>Cascading Style Sheets – linguagem de estilos para apresentação visual.</dd>
+
+    <dt><strong>JavaScript</strong></dt>
+    <dd>Linguagem de programação que adiciona comportamento e interatividade às páginas.</dd>
+  </dl>
+
+  <!-- =====================================================
+    BLOCKQUOTE: <blockquote>
+    Representa uma citação longa de outra fonte.
+    O atributo 'cite' indica a URL da fonte original.
+  ===================================================== -->
+  <h2>6. Citação (&lt;blockquote&gt;)</h2>
+  <blockquote cite="https://developer.mozilla.org">
+    <p>
+      "O HTML descreve a estrutura de uma página Web semanticamente
+      e, originalmente, incluía dicas sobre a aparência do documento."
+    </p>
+    <footer>— MDN Web Docs</footer>
+  </blockquote>
+
+</body>
+</html>
