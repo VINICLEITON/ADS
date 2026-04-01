@@ -1,5 +1,9 @@
 package BaseCodigos;
 
+/**
+ *
+ * @author VINICIUS.BORGES
+ */
 public class OperadoresExpressoes {
 
     public static void main(String[] args) {

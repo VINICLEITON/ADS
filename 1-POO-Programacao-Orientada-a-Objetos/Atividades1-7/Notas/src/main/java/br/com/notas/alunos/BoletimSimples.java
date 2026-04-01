@@ -3,6 +3,10 @@ package br.com.notas.alunos;
 import java.util.Scanner;
 import java.util.Locale;
 
+/**
+ *
+ * @author VINICIUS.BORGES
+ */
 public class BoletimSimples {
 
     public static void main(String[] args) {

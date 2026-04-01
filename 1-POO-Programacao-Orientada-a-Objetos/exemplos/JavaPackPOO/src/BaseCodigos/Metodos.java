@@ -1,5 +1,9 @@
 package BaseCodigos;
 
+/**
+ *
+ * @author VINICIUS.BORGES
+ */
 public class Metodos {
 
     static void exibirBoasVindas() {

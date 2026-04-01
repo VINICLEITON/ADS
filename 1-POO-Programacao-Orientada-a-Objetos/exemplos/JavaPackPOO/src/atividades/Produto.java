@@ -1,5 +1,9 @@
 package atividades;
 
+/**
+ *
+ * @author VINICIUS.BORGES
+ */
 public class Produto {
 
     String nome;

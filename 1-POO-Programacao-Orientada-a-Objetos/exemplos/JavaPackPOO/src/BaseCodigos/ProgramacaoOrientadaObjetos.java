@@ -77,6 +77,10 @@ class Gato extends Animal {
     }
 }
 
+/**
+ *
+ * @author VINICIUS.BORGES
+ */
 public class ProgramacaoOrientadaObjetos {
 
     public static void main(String[] args) {

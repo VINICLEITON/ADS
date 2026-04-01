@@ -3,6 +3,10 @@ package atividades;
 import java.util.Locale;
 import java.util.Scanner;
 
+/**
+ *
+ * @author VINICIUS.BORGES
+ */
 public class At7 {
 
     public static void main(String[] args) {

@@ -2,6 +2,10 @@ package CodigosDeAulas.RepeticaoEx;
 
 import java.util.Scanner;
 
+/**
+ *
+ * @author VINICIUS.BORGES
+ */
 public class Ex2_while {
 
     public static void main(String args[]) {

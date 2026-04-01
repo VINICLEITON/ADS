@@ -2,6 +2,10 @@ package CodigosDeAulas.RepeticaoEx;
 
 import java.util.Scanner;
 
+/**
+ *
+ * @author VINICIUS.BORGES
+ */
 public class AlturaSexo_For {
 
     public static void main(String[] args) {
