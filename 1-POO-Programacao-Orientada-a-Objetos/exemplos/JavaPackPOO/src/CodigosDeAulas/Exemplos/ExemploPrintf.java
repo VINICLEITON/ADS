@@ -1,6 +1,7 @@
 package CodigosDeAulas.Exemplos;
 
 public class ExemploPrintf {
+
     public static void main(String[] args) {
         String nome = "Vivi";
         int idade = 30;
