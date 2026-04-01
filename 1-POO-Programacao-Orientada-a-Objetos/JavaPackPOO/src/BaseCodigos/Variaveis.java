@@ -1,3 +1,4 @@
+package BaseCodigos;
 // ============================================================
 //  Variáveis e Tipos de Dados em Java
 //  Conceito: Java é uma linguagem FORTEMENTE TIPADA, ou seja,

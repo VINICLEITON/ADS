@@ -1,3 +1,4 @@
+package BaseCodigos;
 // ============================================================
 //  Strings em Java
 //  Conceito: String é uma CLASSE (não primitivo) que representa
