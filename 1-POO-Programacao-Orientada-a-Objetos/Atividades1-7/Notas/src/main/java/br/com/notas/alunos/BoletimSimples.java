@@ -1,3 +1,4 @@
+// Autor: VINICIUS.BORGES
 package br.com.notas.alunos;
 
 import java.util.Scanner;

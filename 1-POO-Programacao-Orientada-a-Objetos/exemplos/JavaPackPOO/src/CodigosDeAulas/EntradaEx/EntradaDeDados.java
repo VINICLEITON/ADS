@@ -1,3 +1,4 @@
+// Autor: VINICIUS.BORGES
 package CodigosDeAulas.EntradaEx;
 import java.util.Scanner;
 

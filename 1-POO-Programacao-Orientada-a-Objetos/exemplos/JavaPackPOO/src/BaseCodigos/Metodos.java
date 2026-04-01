@@ -1,3 +1,4 @@
+// Autor: VINICIUS.BORGES
 package BaseCodigos;
 
 public class Metodos {
