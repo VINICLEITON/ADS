@@ -1,6 +1,9 @@
-// Autor: VINICIUS.BORGES
 package CodigosDeAulas.Exemplos;
 
+/**
+ *
+ * @author VINICIUS.BORGES
+ */
 public class ExemploPrintf {
 
     public static void main(String[] args) {

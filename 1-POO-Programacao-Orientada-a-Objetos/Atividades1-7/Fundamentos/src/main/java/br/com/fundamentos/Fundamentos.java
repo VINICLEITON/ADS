@@ -1,9 +1,12 @@
-// Autor: VINICIUS.BORGES
 package br.com.fundamentos;
 
 import java.util.Scanner;
 import java.util.Locale;
 
+/**
+ *
+ * @author VINICIUS.BORGES
+ */
 public class Fundamentos {
 
     public static void main(String[] args) {

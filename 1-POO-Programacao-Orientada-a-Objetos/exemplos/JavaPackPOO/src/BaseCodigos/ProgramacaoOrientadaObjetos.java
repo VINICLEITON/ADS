@@ -1,4 +1,3 @@
-// Autor: VINICIUS.BORGES
 package BaseCodigos;
 
 import java.util.ArrayList;
@@ -78,6 +77,10 @@ class Gato extends Animal {
     }
 }
 
+/**
+ *
+ * @author VINICIUS.BORGES
+ */
 public class ProgramacaoOrientadaObjetos {
 
     public static void main(String[] args) {

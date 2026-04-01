@@ -1,7 +1,10 @@
-// Autor: VINICIUS.BORGES
 package CodigosDeAulas.EntradaEx;
 import java.util.Scanner;
 
+/**
+ *
+ * @author VINICIUS.BORGES
+ */
 public class EntradaDeDados {
 
     public static void main(String[] args) {

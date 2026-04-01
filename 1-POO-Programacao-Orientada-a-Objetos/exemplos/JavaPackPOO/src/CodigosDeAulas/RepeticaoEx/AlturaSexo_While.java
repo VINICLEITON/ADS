@@ -1,8 +1,11 @@
-// Autor: VINICIUS.BORGES
 package CodigosDeAulas.RepeticaoEx;
 
 import java.util.Scanner;
 
+/**
+ *
+ * @author VINICIUS.BORGES
+ */
 public class AlturaSexo_While {
 
     public static void main(String[] args) {

@@ -1,6 +1,9 @@
-// Autor: VINICIUS.BORGES
 package BaseCodigos;
 
+/**
+ *
+ * @author VINICIUS.BORGES
+ */
 public class Strings {
 
     public static void main(String[] args) {
