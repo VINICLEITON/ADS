@@ -1,13 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
-
 package br.com.fundamentos;
-
-/**
- *
- * @author VINICIUS.BORGES
- */
 
 import java.util.Scanner;
 import java.util.Locale;
@@ -15,11 +6,9 @@ import java.util.Locale;
 public class Fundamentos {
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in).useLocale(Locale.US);
+        Scanner leitor = new Scanner(System.in).useLocale(Locale.US);
         int opcao;
 
-        // O bloco 'do' vai executar o menu pelo menos uma vez e repetir 
-        // enquanto a variável 'opcao' for diferente de 0.
         do {
             System.out.println("=======================================");
             System.out.println("        MENU DE FUNDAMENTOS            ");
@@ -33,24 +22,23 @@ public class Fundamentos {
             System.out.println("0 - Sair do Programa");
             System.out.println("=======================================");
             System.out.print("Escolha uma opção: ");
-            
-            opcao = scanner.nextInt();
-            System.out.println(); // Pula uma linha para organizar visualmente
 
-            // O 'switch' avalia a opção digitada e executa apenas o bloco correspondente
+            opcao = leitor.nextInt();
+            System.out.println();
+
             switch (opcao) {
                 case 1:
                     System.out.println("--- 1. Fahrenheit para Celsius ---");
                     System.out.print("Digite a temperatura em Fahrenheit: ");
-                    double fahrenheit = scanner.nextDouble();
+                    double fahrenheit = leitor.nextDouble();
                     double fParaCelsius = (fahrenheit - 32) * 5 / 9;
                     System.out.printf("Resultado: %.2f °C\n\n", fParaCelsius);
-                    break; // O break é crucial para ele não executar as opções abaixo
+                    break;
 
                 case 2:
                     System.out.println("--- 2. Celsius para Fahrenheit ---");
                     System.out.print("Digite a temperatura em Celsius: ");
-                    double celsius = scanner.nextDouble();
+                    double celsius = leitor.nextDouble();
                     double cParaFahrenheit = (celsius * 9 / 5) + 32;
                     System.out.printf("Resultado: %.2f °F\n\n", cParaFahrenheit);
                     break;
@@ -58,9 +46,9 @@ public class Fundamentos {
                 case 3:
                     System.out.println("--- 3. Calculadora de IMC ---");
                     System.out.print("Digite o seu peso (kg): ");
-                    double peso = scanner.nextDouble();
+                    double peso = leitor.nextDouble();
                     System.out.print("Digite a sua altura (m): ");
-                    double altura = scanner.nextDouble();
+                    double altura = leitor.nextDouble();
                     double imc = peso / Math.pow(altura, 2);
                     System.out.printf("Seu IMC é: %.2f\n\n", imc);
                     break;
@@ -68,16 +56,16 @@ public class Fundamentos {
                 case 4:
                     System.out.println("--- 4. Quadrado e Cubo ---");
                     System.out.print("Digite um valor numérico: ");
-                    double valor = scanner.nextDouble();
+                    double valor = leitor.nextDouble();
                     System.out.printf("Ao quadrado: %.2f | Ao cubo: %.2f\n\n", Math.pow(valor, 2), Math.pow(valor, 3));
                     break;
 
                 case 5:
                     System.out.println("--- 5. Área do Triângulo ---");
                     System.out.print("Digite o valor da base: ");
-                    double base = scanner.nextDouble();
+                    double base = leitor.nextDouble();
                     System.out.print("Digite o valor da altura: ");
-                    double alturaTriangulo = scanner.nextDouble();
+                    double alturaTriangulo = leitor.nextDouble();
                     double area = (base * alturaTriangulo) / 2;
                     System.out.printf("A área do triângulo é: %.2f\n\n", area);
                     break;
@@ -105,13 +93,12 @@ public class Fundamentos {
                     break;
 
                 default:
-                    // Caso o usuário digite um número que não está no menu (ex: 9)
                     System.out.println("Opção inválida! Por favor, tente novamente.\n");
                     break;
             }
 
-        } while (opcao != 0); // A condição que mantém o programa rodando
+        } while (opcao != 0);
 
-        scanner.close();
+        leitor.close();
     }
 }

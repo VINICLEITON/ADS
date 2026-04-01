@@ -2,57 +2,57 @@ package CodigosDeAulas.RepeticaoEx;
 
 import java.util.Scanner;
 
-	public class AlturaSexo_While {
-		public static void main(String[] args) {
-		  Scanner scanner = new Scanner(System.in);
+public class AlturaSexo_While {
+public static void main(String[] args) {
+Scanner leitor = new Scanner(System.in);
 
-	        final int TOTAL_PESSOAS = 5;
+final int TOTAL_PESSOAS = 5;
 
-	        double maiorAltura = 0;
-	        double menorAltura = 999;
-	        double somaAlturasMulheres = 0;
-	        double mediaAlturaMulheres = 0;
+double maiorAltura = 0;
+double menorAltura = 999;
+double somaAlturasMulheres = 0;
+double mediaAlturaMulheres = 0;
 
-	        int numeroMulheres = 0;
-	        int numeroHomens = 0;
-	        int cont = 0;
+int numeroMulheres = 0;
+int numeroHomens = 0;
+int contador = 0;
 
-	        while (cont < TOTAL_PESSOAS) {
-	            System.out.print("Digite a altura da pessoa " + (cont + 1) + ": ");
-	            double altura = scanner.nextDouble();
+while (contador < TOTAL_PESSOAS) {
+    System.out.print("Digite a altura da pessoa " + (contador + 1) + ": ");
+    double altura = leitor.nextDouble();
 
-	            System.out.print("Digite 1 para feminino e 2 para masculino: ");
-	            int sexo = scanner.nextInt();
+    System.out.print("Digite 1 para feminino e 2 para masculino: ");
+    int sexo = leitor.nextInt();
 
-	            if (altura > maiorAltura) {
-	                maiorAltura = altura;
-	            }
+    if (altura > maiorAltura) {
+        maiorAltura = altura;
+    }
 
-	            if (altura < menorAltura) {
-	                menorAltura = altura;
-	            }
+    if (altura < menorAltura) {
+        menorAltura = altura;
+    }
 
-	            if (sexo == 1) {
-	                somaAlturasMulheres = somaAlturasMulheres + altura;
-	                numeroMulheres++;
-	            }
+    if (sexo == 1) {
+        somaAlturasMulheres = somaAlturasMulheres + altura;
+        numeroMulheres++;
+    }
 
-	            if (sexo == 2) {
-	                numeroHomens++;
-	            }
+    if (sexo == 2) {
+        numeroHomens++;
+    }
 
-	            cont++;
-	        }
+    contador++;
+}
 
-	        if (numeroMulheres > 0) {
-	            mediaAlturaMulheres = somaAlturasMulheres / numeroMulheres;
-	        }
+if (numeroMulheres > 0) {
+    mediaAlturaMulheres = somaAlturasMulheres / numeroMulheres;
+}
 
-	        System.out.println("Maior altura do grupo: " + maiorAltura);
-	        System.out.println("Menor altura do grupo: " + menorAltura);
-	        System.out.println("Média de altura das mulheres: " + mediaAlturaMulheres);
-	        System.out.println("Número de homens: " + numeroHomens);
+System.out.println("Maior altura do grupo: " + maiorAltura);
+System.out.println("Menor altura do grupo: " + menorAltura);
+System.out.println("Média de altura das mulheres: " + mediaAlturaMulheres);
+System.out.println("Número de homens: " + numeroHomens);
 
-	        scanner.close();
-	    }
-	}
+leitor.close();
+}
+}

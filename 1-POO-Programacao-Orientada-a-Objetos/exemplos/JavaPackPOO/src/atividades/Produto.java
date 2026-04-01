@@ -1,14 +1,12 @@
 package atividades;
 
 public class Produto {
-    public static void main(String[] args) {
-        String nome;
-        double preco;
-        double desconto;
 
-        double precoComDesconto() {
-            return 
-        })
+    String nome;
+    double preco;
+    double desconto;
+
+    double calcularPrecoComDesconto() {
+        return preco - (preco * desconto / 100);
     }
-
 }
