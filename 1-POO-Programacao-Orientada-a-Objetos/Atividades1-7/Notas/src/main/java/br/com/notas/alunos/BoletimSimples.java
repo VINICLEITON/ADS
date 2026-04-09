@@ -1,16 +1,14 @@
 package br.com.notas.alunos;
 
 import java.util.Scanner;
-import java.util.Locale;
 
 /**
- *
  * @author VINICIUS.BORGES
  */
 public class BoletimSimples {
 
     public static void main(String[] args) {
-        Scanner leitor = new Scanner(System.in).useLocale(Locale.US);
+        Scanner leitor = new Scanner(System.in);
 
         System.out.print("Digite o nome do aluno: ");
         String nome = leitor.nextLine();
@@ -23,11 +21,12 @@ public class BoletimSimples {
 
         double media = (nota1 + nota2) / 2;
 
-        System.out.println("\n=== Boletim do Aluno ===");
-        System.out.println("Nome: " + nome);
+        System.out.println("\n=== Resultado do Boletim ===");
+        System.out.println("Aluno: " + nome);
         System.out.println("Nota 1: " + nota1);
         System.out.println("Nota 2: " + nota2);
-        System.out.printf("Média Final: %.2f\n", media);
+        
+        System.out.printf("Media Final: %.2f%n", media);
 
         if (media >= 6.0) {
             System.out.println("Status: APROVADO");
